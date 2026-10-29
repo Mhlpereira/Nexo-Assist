@@ -12,7 +12,7 @@ describe('guardrails de entrada', () => {
     expect(result.blocked).toBe(false)
     if (result.blocked) return
     expect(result.text).not.toContain('Nexo@2026')
-    expect(result.findings.map((f) => f.id)).toContain('GR-05')
+    expect(result.findings.map((finding) => finding.id)).toContain('GR-05')
   })
 
   it('GR-05: não mascara menções comuns a senha', () => {

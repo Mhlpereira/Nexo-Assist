@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: nexo
       POSTGRES_DB: nexo
     ports:
-      - "5433:5432"
+      - "${POSTGRES_PORT:-5440}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:

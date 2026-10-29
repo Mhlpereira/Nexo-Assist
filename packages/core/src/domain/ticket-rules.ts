@@ -1,6 +1,6 @@
 import { isActive, type Category, type Ticket } from './ticket'
 
-const DAY_MS = 24 * 60 * 60 * 1000
+const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000
 export const REOPEN_WINDOW_DAYS = 7
 
 const STOPWORDS = new Set(
@@ -19,9 +19,9 @@ const tokenize = (text: string): Set<string> =>
       .filter((word) => word.length > 2 && !STOPWORDS.has(word)),
   )
 
-export function similarity(a: string, b: string): number {
-  const left = tokenize(a)
-  const right = tokenize(b)
+export function similarity(firstText: string, secondText: string): number {
+  const left = tokenize(firstText)
+  const right = tokenize(secondText)
   if (left.size === 0 || right.size === 0) return 0
   const shared = [...left].filter((word) => right.has(word)).length
   return shared / (left.size + right.size - shared)
@@ -40,7 +40,7 @@ export function findLikelyDuplicate(
   tickets: Ticket[],
 ): DuplicateMatch | null {
   let best: DuplicateMatch | null = null
-  for (const ticket of tickets.filter((t) => isActive(t.status))) {
+  for (const ticket of tickets.filter((candidate) => isActive(candidate.status))) {
     const score = similarity(issue.text, `${ticket.title} ${ticket.description}`)
     const threshold = ticket.category === issue.category ? SAME_CATEGORY_THRESHOLD : ANY_CATEGORY_THRESHOLD
     if (score >= threshold && (!best || score > best.score)) best = { ticket, score }
@@ -52,5 +52,5 @@ export const canUpdate = (ticket: Ticket): boolean => isActive(ticket.status)
 
 export function canReopen(ticket: Ticket, now: Date): boolean {
   if (ticket.status !== 'resolved' || !ticket.resolvedAt) return false
-  return now.getTime() - ticket.resolvedAt.getTime() <= REOPEN_WINDOW_DAYS * DAY_MS
+  return now.getTime() - ticket.resolvedAt.getTime() <= REOPEN_WINDOW_DAYS * MILLISECONDS_PER_DAY
 }

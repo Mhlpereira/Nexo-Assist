@@ -10,7 +10,7 @@ export interface TraceAction {
   input: unknown
   output: unknown
   status: 'ok' | 'error' | 'blocked'
-  durationMs: number
+  durationMilliseconds: number
   attempts: number
 }
 
@@ -19,7 +19,7 @@ export interface LlmUsage {
   calls: number
   inputTokens: number
   outputTokens: number
-  latencyMs: number
+  latencyMilliseconds: number
 }
 
 export interface DecisionTrace {
@@ -34,12 +34,12 @@ export interface DecisionTrace {
   llm: LlmUsage | null
 }
 
-export const emptyUsage = (model: string): LlmUsage => ({ model, calls: 0, inputTokens: 0, outputTokens: 0, latencyMs: 0 })
+export const emptyUsage = (model: string): LlmUsage => ({ model, calls: 0, inputTokens: 0, outputTokens: 0, latencyMilliseconds: 0 })
 
-export const addUsage = (a: LlmUsage, b: LlmUsage): LlmUsage => ({
-  model: b.model || a.model,
-  calls: a.calls + b.calls,
-  inputTokens: a.inputTokens + b.inputTokens,
-  outputTokens: a.outputTokens + b.outputTokens,
-  latencyMs: a.latencyMs + b.latencyMs,
+export const addUsage = (total: LlmUsage, increment: LlmUsage): LlmUsage => ({
+  model: increment.model || total.model,
+  calls: total.calls + increment.calls,
+  inputTokens: total.inputTokens + increment.inputTokens,
+  outputTokens: total.outputTokens + increment.outputTokens,
+  latencyMilliseconds: total.latencyMilliseconds + increment.latencyMilliseconds,
 })

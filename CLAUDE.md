@@ -24,6 +24,7 @@ Agent de service desk de TI (desafio técnico). Desenvolvimento **spec-driven**:
 - Validação de fronteira com Zod (HTTP, saída do LLM, variáveis de ambiente).
 - Erros esperados como valores (`Result`) no core; exceções só para o inesperado.
 - **Sem comentários no código**: nada de `//` ou `/* */` explicativos nem JSDoc. O código deve se explicar por nomes claros e funções pequenas. Se algo precisa de explicação, renomeie ou extraia; decisões de design vão em `specs/design.md`.
+- **Nomes completos, sem abreviações** (Clean Code / Clean Architecture): nada de `c`, `t`, `e`, `x`, `n`, `ms`, `env`, `ctx`, `req`, `res`, `cfg`, `tmp`. Use `context`, `ticket`, `event`, `milliseconds`, `environment`, `request`, `response`, `configuration`. Vale para variáveis, parâmetros de callbacks/lambdas, funções, tipos e constantes. Siglas consagradas do domínio ou da tecnologia são permitidas (`id`, `url`, `sql`, `sla`, `llm`, `http`, `json`).
 - Código e nomes de domínio em inglês; textos para o usuário em pt-BR.
 
 ## Comandos

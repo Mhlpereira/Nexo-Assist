@@ -18,9 +18,9 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 - [x] **T1.7** Policy: `(interpretation, state, flags) → Route + rules`. · REQ-HAND-01..04, REQ-SCOPE-01, GR-06 · unit
 
 ## Fase 2 — Serviço de chamados simulado
-- [ ] **T2.1** Schema `tickets` + migrations + seed com datas relativas. · REQ-SVC-05
-- [ ] **T2.2** API Hono (listar, detalhar, criar, atualizar, reabrir, transferir) com checagem de posse e token. · REQ-SVC-01/02, GR-01 · integração
-- [ ] **T2.3** Idempotência e chaos (503 + latência configuráveis). · REQ-SVC-03/04 · integração
+- [x] **T2.1** Schema `tickets` + migrations + seed com datas relativas. · REQ-SVC-05
+- [x] **T2.2** API Hono (listar, detalhar, criar, atualizar, reabrir, transferir) com checagem de posse e token. · REQ-SVC-01/02, GR-01 · integração
+- [x] **T2.3** Idempotência e chaos (503 + latência configuráveis). · REQ-SVC-03/04 · integração
 
 ## Fase 3 — Portas e casos de uso
 - [ ] **T3.1** Portas `in` e `out` (interfaces) conforme design §3. · P9
