@@ -1,6 +1,7 @@
 import { initialState } from '@nexo/core'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { connectDatabase, migrateDatabase } from './connection'
+import { connectDatabase } from './connection'
+import { migrateDatabase } from './migrate'
 import { createPostgresConversationRepository } from './postgres-conversation-repository.adapter'
 import { createPostgresKnowledgeBase } from './postgres-knowledge-base.adapter'
 import { createPostgresUserRepository } from './postgres-user-repository.adapter'

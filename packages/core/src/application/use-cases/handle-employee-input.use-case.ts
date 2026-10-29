@@ -169,7 +169,8 @@ export function createHandleEmployeeInput(dependencies: HandleEmployeeInputDepen
       const handoff = async (reason: HandoffReason, interpretation: Interpretation | null) => {
         const ticketId = state.selectedTicketId
         const ticket = ticketId ? await loadTicketQuietly(ticketId) : null
-        const summary = buildHandoffSummary({ reason, state, lastRequest: employeeText, interpretation, ticket, now: clock.now() })
+        const lastWrittenRequest = described.kind === 'text' ? employeeText : history.findLast((entry) => entry.author === 'employee')?.text
+        const summary = buildHandoffSummary({ reason, state, lastRequest: lastWrittenRequest ?? employeeText, interpretation, ticket, now: clock.now() })
         if (ticketId) {
           await turn.track('transferiu o chamado', 'transfer_ticket', { ticketId }, async () => {
             const call = await tickets.transfer(employeeId, ticketId, summary, `handoff-${conversation.id}-${state.employeeMessageCount}`)

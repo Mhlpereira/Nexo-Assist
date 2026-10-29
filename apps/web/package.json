@@ -6,7 +6,7 @@
     "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start --port 3000",
-    "typecheck": "tsc -p . --noEmit"
+    "typecheck": "next typegen > /dev/null && tsc -p . --noEmit"
   },
   "dependencies": {
     "@nexo/core": "workspace:*",

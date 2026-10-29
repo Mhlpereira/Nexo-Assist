@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import { connectDatabase, migrateDatabase } from './connection'
+import { connectDatabase } from './connection'
+import { migrateDatabase } from './migrate'
 import { seedDatabase } from './seed'
 
 const { DATABASE_URL } = z.object({ DATABASE_URL: z.string().url() }).parse(process.env)

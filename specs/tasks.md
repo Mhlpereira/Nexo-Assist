@@ -37,9 +37,9 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 - [x] **T4.5** Mastra: `Responder` (Agent com tools filtradas por intenção, streaming), prompt do sistema com Anexo A, processors de guardrail reutilizando o core, contagem de tokens e orçamento diário. · REQ-KB-*, REQ-STAT-*, REQ-OPEN-*, GR-04/07/10
 
 ## Fase 5 — Adapter de entrada: API (apps/web)
-- [ ] **T5.1** Composition root (`container.ts`), sessão JWT, middleware de rotas e papéis. · REQ-AUTH-01..04 · integração
-- [ ] **T5.2** `POST /api/chat/:id/messages` com SSE (eventos do design §8); `GET` conversa e mensagens desde; nova conversa; rate limit. · REQ-CHAT-01/04/06, GR-07
-- [ ] **T5.3** Rotas do console (lista com filtros/busca, detalhe, assumir, devolver, encerrar, mensagem do analista, chamados do funcionário). · REQ-CON-*
+- [x] **T5.1** Composition root (`container.ts`), sessão JWT, middleware de rotas e papéis. · REQ-AUTH-01..04 · integração
+- [x] **T5.2** `POST /api/chat/:id/messages` com SSE (eventos do design §8); `GET` conversa e mensagens desde; nova conversa; rate limit. · REQ-CHAT-01/04/06, GR-07
+- [x] **T5.3** Rotas do console (lista com filtros/busca, detalhe, assumir, devolver, encerrar, mensagem do analista, chamados do funcionário). · REQ-CON-*
 
 ## Fase 6 — UI do funcionário (seguindo `docs/prototype/nexo.pen`)
 - [ ] **T6.1** Design tokens (cores, raios, fontes Schibsted Grotesk / Newsreader / IBM Plex Mono) e componentes base (botão, badge de status/prioridade, avatar). · M

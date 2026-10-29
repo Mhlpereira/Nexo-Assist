@@ -1,4 +1,4 @@
-export { connectDatabase, migrateDatabase, type Sql } from './database/connection'
+export { connectDatabase, type Sql } from './database/connection'
 export { createPostgresConversationRepository } from './database/postgres-conversation-repository.adapter'
 export { createPostgresKnowledgeBase } from './database/postgres-knowledge-base.adapter'
 export { createPostgresUserRepository } from './database/postgres-user-repository.adapter'
