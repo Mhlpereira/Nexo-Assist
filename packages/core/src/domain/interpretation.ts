@@ -32,19 +32,17 @@ export const INTENT_LABEL: Record<Intent, string> = {
   unclear: 'Não ficou claro',
 }
 
-const optional = <T extends z.ZodType>(schema: T) => schema.nullish().transform((value) => value ?? null)
-
 export const interpretationSchema = z.object({
   intent: z.enum(INTENTS),
   confidence: z.number().min(0).max(1),
   summary: z.string(),
-  ticketRef: optional(z.string()),
-  kind: optional(z.enum(TICKET_KINDS)),
-  category: optional(z.enum(CATEGORIES)),
-  impact: optional(z.enum(IMPACTS)),
-  blocksWork: optional(z.boolean()),
-  deadlineToday: optional(z.boolean()),
-  environment: optional(z.string()),
+  ticketRef: z.string().nullable(),
+  kind: z.enum(TICKET_KINDS).nullable(),
+  category: z.enum(CATEGORIES).nullable(),
+  impact: z.enum(IMPACTS).nullable(),
+  blocksWork: z.boolean().nullable(),
+  deadlineToday: z.boolean().nullable(),
+  environment: z.string().nullable(),
   rationale: z.string(),
 })
 
