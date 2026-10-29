@@ -20,7 +20,7 @@ Agent de service desk de TI (desafio técnico). Desenvolvimento **spec-driven**:
 - **Organização de arquivos (pastas planas, um contrato por arquivo)**:
   - Sem subpastas dentro de `ports/in`, `ports/out`, `dto` e `use-cases`: apenas arquivos.
   - **Uma interface (ou tipo) exportada por arquivo**, com o nome do arquivo em kebab-case igual ao do contrato.
-  - Sufixos obrigatórios: portas `*.port.ts` (ex.: `ports/in/login.port.ts`, `ports/out/ticket-gateway.port.ts`); dados `*.dto.ts` (ex.: `dto/employee-input.dto.ts`); casos de uso `*.use-case.ts` com o teste ao lado `*.use-case.test.ts`.
+  - Sufixos obrigatórios: portas `*.in.port.ts` em `ports/in` e `*.out.port.ts` em `ports/out` (ex.: `ports/in/login.in.port.ts`, `ports/out/clock.out.port.ts`); dados `*.dto.ts` (ex.: `dto/employee-input.dto.ts`); casos de uso `*.use-case.ts` com o teste ao lado `*.use-case.test.ts`.
   - Portas só declaram comportamento (métodos); qualquer dado que elas recebem ou devolvem vira um DTO em `dto/`.
   - Cada pasta tem um `index.ts` que reexporta seus arquivos; fora do core, importe sempre de `@nexo/core`.
   - `packages/infra`: adapters de saída (Postgres via postgres.js com SQL puro, cliente HTTP do serviço de chamados, Mastra).

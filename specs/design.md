@@ -36,8 +36,8 @@ nexus/
 │   │   └── src/
 │   │       ├── domain/           # tickets, sla, priority, dedupe, conversation, guardrails, trace
 │   │       └── application/
-│   │           ├── ports/in/     # *.port.ts — uma interface de caso de uso por arquivo
-│   │           ├── ports/out/    # *.port.ts — uma dependência externa por arquivo
+│   │           ├── ports/in/     # *.in.port.ts — uma interface de caso de uso por arquivo
+│   │           ├── ports/out/    # *.out.port.ts — uma dependência externa por arquivo
 │   │           ├── dto/          # *.dto.ts — contratos de dados das portas, um por arquivo
 │   │           └── use-cases/    # *.use-case.ts + *.use-case.test.ts (sem subpastas)
 │   └── infra/                    # ADAPTERS DE SAÍDA
@@ -51,7 +51,7 @@ nexus/
 
 Regra de dependência: `apps/* → packages/infra → packages/core`. `core` não importa nada de fora dele.
 
-**Convenção de arquivos do core**: pastas planas, uma interface/tipo exportado por arquivo, sufixos `.port.ts`, `.dto.ts` e `.use-case.ts`. Portas declaram só comportamento; os dados que trafegam por elas são DTOs. Cada pasta tem um `index.ts` de reexportação e os pacotes externos importam de `@nexo/core`.
+**Convenção de arquivos do core**: pastas planas, uma interface/tipo exportado por arquivo, sufixos `.in.port.ts`, `.out.port.ts`, `.dto.ts` e `.use-case.ts`. Portas declaram só comportamento; os dados que trafegam por elas são DTOs. Cada pasta tem um `index.ts` de reexportação e os pacotes externos importam de `@nexo/core`.
 
 ## 3. Portas
 
