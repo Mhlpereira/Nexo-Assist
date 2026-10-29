@@ -193,9 +193,8 @@ Entrada: últimas 8 mensagens (texto) + `ConversationState` resumido + rascunho 
 | `ask_options` (sem label) | pergunta com opções rápidas → bloco | todas |
 | `prepare_ticket_draft` ("classificou a prioridade", "consultou o SLA", "montou o rascunho") | checa duplicidade, calcula prioridade/SLA, cria rascunho pendente → bloco draft | open_ticket |
 | `prepare_update_draft` ("montou a atualização") | rascunho de complemento/reabertura (valida janela de 7 dias) | update_ticket |
-| `request_handoff` ("chamou um analista") | gera resumo, transiciona para `waiting_analyst`, transfere chamado | todas |
 
-As tools retornam **dados + blocos de UI**; o texto do LLM é só a "cola" conversacional. Escritas não existem como tool: só via rascunho confirmado [GR-02].
+As tools retornam **dados + blocos de UI**; o texto do LLM é só a "cola" conversacional. Escritas não existem como tool: só via rascunho confirmado [GR-02]. A **transferência também não é tool**: é decidida pela policy (intenção `talk_to_human`, baixa confiança repetida), pela opção rápida "Falar com um analista" (oferecida pelo agent em chamado vencido) ou automaticamente após confirmar um rascunho de prioridade Crítica. Isso mantém a decisão de transferir determinística e auditável.
 
 ## 6. Guardrails (implementação)
 

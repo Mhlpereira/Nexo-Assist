@@ -9,13 +9,13 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 - [x] **T0.3** Tipo `Result<T, E>` e utilitários mínimos no core. · P8 · unit
 
 ## Fase 1 — Domínio (core, sem I/O)
-- [ ] **T1.1** Tipos de domínio: Ticket, Category, Priority, Status, Impact, Draft, Conversation, DecisionTrace. · design §4, §7
+- [x] **T1.1** Tipos de domínio: Ticket, Category, Priority, Status, Impact, Draft, Conversation, DecisionTrace. · design §4, §7
 - [x] **T1.2** SLA em horas/dias úteis + `dueAt` + `isOverdue`. · REQ-STAT-03 · unit (fins de semana, fora do expediente, crítica 24 h)
 - [x] **T1.3** `computePriority` com justificativa. · REQ-OPEN-04 · unit (tabela do Anexo A)
 - [x] **T1.4** `findLikelyDuplicate` e `canReopen`/`canUpdate`. · REQ-OPEN-06, REQ-UPD-02, REQ-UPD-03 · unit
-- [ ] **T1.5** Máquina de estados da conversa. · REQ-HAND-06, REQ-CON-04/05 · unit (transições válidas e inválidas)
-- [ ] **T1.6** Guardrails puros: input (tamanho, injection, máscara de segredos) e output (filtro de IDs). · GR-03/04/05/07 · unit
-- [ ] **T1.7** Policy: `(interpretation, state, flags) → Route + rules`. · REQ-HAND-01..04, REQ-SCOPE-01, GR-06 · unit
+- [x] **T1.5** Máquina de estados da conversa. · REQ-HAND-06, REQ-CON-04/05 · unit (transições válidas e inválidas)
+- [x] **T1.6** Guardrails puros: input (tamanho, injection, máscara de segredos) e output (filtro de IDs). · GR-03/04/05/07 · unit
+- [x] **T1.7** Policy: `(interpretation, state, flags) → Route + rules`. · REQ-HAND-01..04, REQ-SCOPE-01, GR-06 · unit
 
 ## Fase 2 — Serviço de chamados simulado
 - [ ] **T2.1** Schema `tickets` + migrations + seed com datas relativas. · REQ-SVC-05
