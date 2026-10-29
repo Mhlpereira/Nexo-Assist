@@ -21,21 +21,12 @@ import { PRIORITY_LABEL, TICKET_ID_PATTERN, type Ticket } from '../../domain/tic
 import { canReopen } from '../../domain/ticket-rules'
 import { addUsage, type DecisionTrace, type InputKind, type LlmUsage } from '../../domain/trace'
 import { err, ok } from '../../result'
-import type { ChatError, EmployeeInput, HandleEmployeeInput } from '../ports/in'
-import type {
-  Clock,
-  ConversationRepository,
-  HistoryEntry,
-  IdGenerator,
-  Interpreter,
-  KnowledgeBase,
-  Responder,
-  TicketGateway,
-  UserRepository,
-} from '../ports/out'
-import { toConversationView } from './conversation-view'
+import type { HandleEmployeeInput } from '../ports/in'
+import type { Clock, ConversationRepository, IdGenerator, Interpreter, KnowledgeBase, Responder, TicketGateway, UserRepository } from '../ports/out'
+import { toConversationView } from './to-conversation-view'
 import { createTurn } from './turn'
 import { createTurnTools, toQuickReplies, UNAVAILABLE_MESSAGE } from './turn-tools'
+import type { ChatError, EmployeeInput, HistoryEntry } from '../dto'
 
 export const AGENT_NAME = 'Nexo Assist'
 export const RATE_LIMIT_PER_MINUTE = 10

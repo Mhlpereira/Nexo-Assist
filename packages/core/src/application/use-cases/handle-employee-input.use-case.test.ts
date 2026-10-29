@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 import { initialState, MAX_EMPLOYEE_MESSAGES } from '../../domain/conversation'
 import { HANDOFF_ACTION, type MessageBlock } from '../../domain/message'
 import type { Ticket } from '../../domain/ticket'
-import type { EmployeeInput } from '../ports/in'
 import {
   ANA,
   fixedClock,
@@ -18,7 +17,8 @@ import {
   type ResponderStep,
 } from '../testing/fakes'
 import type { Interpretation } from '../../domain/interpretation'
-import { createHandleEmployeeInput } from './handle-employee-input'
+import { createHandleEmployeeInput } from './handle-employee-input.use-case'
+import type { EmployeeInput } from '../dto'
 
 const DAY = 24 * 60 * 60 * 1000
 

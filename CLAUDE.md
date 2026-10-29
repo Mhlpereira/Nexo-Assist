@@ -15,7 +15,14 @@ Agent de service desk de TI (desafio técnico). Desenvolvimento **spec-driven**:
   - `packages/core/src/domain`: entidades, value objects e regras de negócio puras. Sem dependência de framework, I/O ou relógio do sistema.
   - `packages/core/src/application/ports/in`: interfaces dos casos de uso (o que o mundo externo pode pedir ao sistema).
   - `packages/core/src/application/ports/out`: interfaces do que o sistema precisa do mundo externo (repositórios, serviço de chamados, LLM/agent, relógio).
+  - `packages/core/src/application/dto`: os contratos de dados que atravessam as portas (comandos, resultados, erros, views, requests).
   - `packages/core/src/application/use-cases`: implementações das portas `in`, dependendo apenas de portas `out`.
+- **Organização de arquivos (pastas planas, um contrato por arquivo)**:
+  - Sem subpastas dentro de `ports/in`, `ports/out`, `dto` e `use-cases`: apenas arquivos.
+  - **Uma interface (ou tipo) exportada por arquivo**, com o nome do arquivo em kebab-case igual ao do contrato.
+  - Sufixos obrigatórios: portas `*.port.ts` (ex.: `ports/in/login.port.ts`, `ports/out/ticket-gateway.port.ts`); dados `*.dto.ts` (ex.: `dto/employee-input.dto.ts`); casos de uso `*.use-case.ts` com o teste ao lado `*.use-case.test.ts`.
+  - Portas só declaram comportamento (métodos); qualquer dado que elas recebem ou devolvem vira um DTO em `dto/`.
+  - Cada pasta tem um `index.ts` que reexporta seus arquivos; fora do core, importe sempre de `@nexo/core`.
   - `packages/infra`: adapters de saída (Postgres via postgres.js com SQL puro, cliente HTTP do serviço de chamados, Mastra).
   - `apps/web`: adapters de entrada (rotas Next.js, UI) e o composition root (`src/server/container.ts`).
   - Dependências sempre apontam para dentro: `apps/* → infra → core`. `core` nunca importa de `infra` ou `apps`.

@@ -3,8 +3,9 @@ import { plainText, toTicketView, type SystemEventIcon } from '../../domain/mess
 import { formatDue } from '../../domain/sla'
 import type { DecisionTrace } from '../../domain/trace'
 import { err, ok, type Result } from '../../result'
-import type { AnalystConsole, ConsoleError, ConsoleFilter, ConversationSummary } from '../ports/in'
-import type { Clock, ConsoleRow, ConversationRepository, TicketGateway, UserRepository } from '../ports/out'
+import type { AnalystConsole } from '../ports/in'
+import type { Clock, ConversationRepository, TicketGateway, UserRepository } from '../ports/out'
+import type { ConsoleError, ConsoleFilter, ConsoleRow, ConversationSummary } from '../dto'
 
 export interface AnalystConsoleDependencies {
   conversations: ConversationRepository

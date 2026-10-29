@@ -5,8 +5,9 @@ import { computePriority } from '../../domain/priority'
 import { dueDate, formatDue, SLA } from '../../domain/sla'
 import { isActive, PRIORITY_LABEL, type Ticket } from '../../domain/ticket'
 import { canReopen, canUpdate, findLikelyDuplicate } from '../../domain/ticket-rules'
-import type { Clock, GatewayCall, IdGenerator, KnowledgeBase, TicketGateway, TurnTools } from '../ports/out'
+import type { Clock, IdGenerator, KnowledgeBase, TicketGateway, TurnTools } from '../ports/out'
 import type { ActionOutcome, Turn } from './turn'
+import type { GatewayCall } from '../dto'
 
 export interface TurnToolsDependencies {
   employeeId: string

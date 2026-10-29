@@ -30,3 +30,5 @@ O código deve ser **o mais simples possível**: a menor solução que atende a 
 
 ## P9. Hexagonal com portas in/out
 O domínio e os casos de uso não conhecem Next.js, Mastra, Postgres nem HTTP. Casos de uso são expostos por **portas de entrada** (`ports/in`) e dependem apenas de **portas de saída** (`ports/out`). Frameworks são adapters plugados no composition root. Trocar o LLM, o banco ou o serviço de chamados não deve tocar no domínio.
+
+Organização: `ports/in`, `ports/out`, `dto` e `use-cases` são pastas planas, com **um contrato por arquivo** e sufixos `.port.ts`, `.dto.ts` e `.use-case.ts`, para que cada porta, dado e caso de uso seja encontrado pelo nome do arquivo.

@@ -1,10 +1,11 @@
 import { initialState, transition } from '../../domain/conversation'
 import { err, ok } from '../../result'
-import type { EmployeeConversation, EmployeeConversations } from '../ports/in'
+import type { EmployeeConversations } from '../ports/in'
 import type { Clock, ConversationRepository, UserRepository } from '../ports/out'
-import { toConversationView } from './conversation-view'
-import { AGENT_NAME } from './handle-employee-input'
+import { toConversationView } from './to-conversation-view'
+import { AGENT_NAME } from './handle-employee-input.use-case'
 import { toQuickReplies } from './turn-tools'
+import type { EmployeeConversation } from '../dto'
 
 export interface EmployeeConversationsDependencies {
   conversations: ConversationRepository

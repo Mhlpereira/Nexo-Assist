@@ -4,23 +4,9 @@ import type { Message, NewMessage } from '../../domain/message'
 import type { Ticket } from '../../domain/ticket'
 import { emptyUsage } from '../../domain/trace'
 import { err, ok } from '../../result'
-import type { TurnEvent, TurnEventSink } from '../ports/in'
-import type {
-  Article,
-  Clock,
-  ConsoleRow,
-  ConversationRepository,
-  GatewayCall,
-  IdGenerator,
-  Interpreter,
-  KnowledgeBase,
-  RespondRequest,
-  Responder,
-  TicketGateway,
-  TurnTools,
-  User,
-  UserRepository,
-} from '../ports/out'
+import type { TurnEventSink } from '../ports/in'
+import type { Clock, ConversationRepository, IdGenerator, Interpreter, KnowledgeBase, Responder, TicketGateway, TurnTools, UserRepository } from '../ports/out'
+import type { Article, ConsoleRow, GatewayCall, RespondRequest, TurnEvent, User } from '../dto'
 
 export const fixedClock = (iso = '2026-10-29T09:43:00-03:00'): Clock & { advance(milliseconds: number): void } => {
   let current = new Date(iso)
