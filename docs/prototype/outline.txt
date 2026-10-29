@@ -1,0 +1,940 @@
+VARIABLES: {"bg": {"type": "color", "value": "#FCFCFC"}, "surface": {"type": "color", "value": "#FFFFFF"}, "card": {"type": "color", "value": "#F5F5F5"}, "card-strong": {"type": "color", "value": "#EDEDED"}, "fg": {"type": "color", "value": "#0B0B0B"}, "muted": {"type": "color", "value": "#636363"}, "subtle": {"type": "color", "value": "#8E8E8E"}, "border": {"type": "color", "value": "#0B0B0B14"}, "border-strong": {"type": "color", "value": "#0B0B0B24"}, "primary": {"type": "color", "value": "#0285F7"}, "primary-hover": {"type": "color", "value": "#0071D6"}, "primary-soft": {"type": "color", "value": "#0285F712"}, "primary-text": {"type": "color", "value": "#0069C7"}, "success": {"type": "color", "value": "#00BD6C"}, "success-soft": {"type": "color", "value": "#00BD6C14"}, "success-text": {"type": "color", "value": "#00804A"}, "warning": {"type": "color", "value": "#F5A500"}, "warning-soft": {"type": "color", "value": "#F5A50018"}, "warning-text": {"type": "color", "value": "#946300"}, "danger": {"type": "color", "value": "#EE343B"}, "danger-soft": {"type": "color", "value": "#EE343B12"}, "danger-text": {"type": "color", "value": "#C4161D"}, "violet": {"type": "color", "value": "#A37AFF"}, "violet-soft": {"type": "color", "value": "#A37AFF16"}, "violet-text": {"type": "color", "value": "#6B3FE0"}, "font-sans": {"type": "string", "value": "Geist"}, "font-mono": {"type": "string", "value": "Geist Mono"}, "radius-sm": {"type": "number", "value": 6}, "radius-md": {"type": "number", "value": 10}, "radius-lg": {"type": "number", "value": 14}, "font-display": {"type": "string", "value": "Newsreader"}, "font-ui": {"type": "string", "value": "Schibsted Grotesk"}, "font-data": {"type": "string", "value": "IBM Plex Mono"}, "paper": {"type": "color", "value": "#FFFFFF"}, "desk": {"type": "color", "value": "#F6F7F9"}, "ink": {"type": "color", "value": "#1B2431"}, "ink-2": {"type": "color", "value": "#3D4656"}, "ink-3": {"type": "color", "value": "#5B6472"}, "rule": {"type": "color", "value": "#E6E8EC"}, "cta": {"type": "color", "value": "#0062C4"}}
+[frame] Identificação (desktop)  width=1440 height=900 fill=$paper
+  [frame] Showcase  width=800 height=fill_container fill=$ink layout=vertical padding=[40, 64, 48, 64]
+    [frame] Brand  gap=10
+      [frame] Nexo Mark  width=24 height=24 layout=none
+      [text] Name "Nexo Assist"  fill=#FFFFFF fontSize=17 fontWeight=700
+    [frame] Story  width=fill_container layout=vertical gap=36
+      [frame] Headline  width=fill_container layout=vertical gap=18
+        [text] Eyebrow "Service desk de TI da Nexo"
+        [text] Title "Seu problema de TI, resolvido em uma conversa."
+        [text] Body "Descreva o que está acontecendo. O assistente consulta seus chamados, busca na central de ajuda e chama um analista quando precisa."
+      [frame] Preview Wrap  width=fill_container padding=[0, 0, 0, 96]
+        [frame] Conversation Preview
+          [frame] User
+            [frame] Bubble
+              [text] Text "Meu notebook não conecta na VPN. Erro 809."
+          [frame] Agent
+            [frame] Who
+              [text] Name "Nexo Assist"
+              [text] Steps "consultou seus chamados · criou um chamado"
+            [frame] Bubble
+              [text] Text "Pronto: abri o chamado com prioridade alta. Um analista fala com você em até 4 h úteis."
+            [frame] Ticket Chip
+              [ellipse] Dot
+              [text] Number "INC-20517"
+              [text] Meta "Rede e VPN · Alta · em até 4 h"
+    [frame] Stats  width=fill_container padding=[24, 0, 0, 0] stroke=#FFFFFF1A
+      [frame] primeira resposta, em média  width=fill_container layout=vertical gap=6
+        [frame] Value
+          [text] Number "8 s"
+        [text] Label "primeira resposta, em média"
+      [frame] resolvidos sem fila  width=fill_container layout=vertical gap=6 padding=[0, 0, 0, 24] stroke=#FFFFFF1A
+        [frame] Value
+          [text] Number "72%"
+        [text] Label "resolvidos sem fila"
+      [frame] analistas online agora  width=fill_container layout=vertical gap=6 padding=[0, 0, 0, 24] stroke=#FFFFFF1A
+        [frame] Value
+          [text] Number "6"
+          [ellipse] Live
+        [text] Label "analistas online agora"
+  [frame] Sign In  width=fill_container height=fill_container layout=vertical padding=[40, 56]
+    [frame] Help  width=fill_container gap=6
+      [text] Q "Problema para entrar?"  fill=$ink-3 fontSize=13.5 fontWeight=normal
+      [text] Link "Ligue no ramal 4000"  fill=$primary-text fontSize=13.5 fontWeight=600
+    [frame] Center  width=fill_container
+      [frame] Form  width=380 layout=vertical gap=28
+        [frame] Heading
+          [text] Title "Entrar"
+          [text] Subtitle "Use seu e-mail corporativo e a senha da rede Nexo."
+        [frame] Fields
+          [frame] E-mail corporativo
+            [frame] Label Row
+              [text] Label "E-mail corporativo"
+            [frame] Input
+              [icon] Icon icon=mail
+              [text] Value "ana.souza@nexo.com.br"
+          [frame] Senha
+            [frame] Label Row
+              [text] Label "Senha"
+              [text] Link "Esqueci minha senha"
+            [frame] Input
+              [icon] Icon icon=lock-keyhole
+              [text] Value "••••••••••"
+              [frame] Toggle
+                [icon] Icon icon=eye
+          [frame] Remember
+            [frame] Checkbox
+              [icon] Check icon=check
+            [text] Label "Manter conectado neste computador"
+        [frame] Entrar
+          [text] Label "Entrar"
+          [icon] Icon icon=arrow-right
+        [frame] Note
+    [frame] Footer  width=fill_container
+      [text] Copy "© 2026 Nexo · Service desk de TI"  fill=$ink-3 fontSize=12.5 fontWeight=normal
+      [text] Privacy "Privacidade e uso de dados"  fill=$ink-3 fontSize=12.5 fontWeight=normal
+[frame] Chat — Novo chamado (desktop)  width=1440 height=900 fill=$paper
+  [frame] Sidebar  width=232 height=fill_container layout=vertical padding=[20, 14, 14, 14] stroke=$rule
+    [frame] Logo  gap=10 padding=[0, 8]
+      [frame] Nexo Mark  width=20 height=20 layout=none
+        [rectangle] 
+      [text] Name "Nexo Assist"  fill=$ink fontSize=16 fontWeight=700
+    [frame] Gap1  width=fill_container height=22
+    [frame] Nav  width=fill_container layout=vertical gap=2
+      [frame] Atendimento  width=fill_container height=36 fill=$primary-soft gap=10 padding=[0, 10] cornerRadius=8
+        [icon] Icon icon=message-square
+        [text] Label "Atendimento"
+      [frame] Meu perfil  width=fill_container height=36 gap=10 padding=[0, 10] cornerRadius=8
+        [icon] Icon icon=user-round
+        [text] Label "Meu perfil"
+    [frame] Spacer  width=fill_container height=fill_container
+    [frame] User  width=fill_container gap=10 padding=[14, 8, 4, 8] stroke=$rule
+      [frame] Avatar  width=34 height=34 fill=$primary-soft cornerRadius=999
+        [text] Initials "AS"
+      [frame] Text  width=fill_container layout=vertical gap=1
+        [text] Name "Ana Souza"
+        [text] Email "ana.souza@nexo.com.br"
+    [frame] Sair  width=fill_container height=34 gap=10 padding=[0, 10] cornerRadius=8
+      [icon] Icon icon=log-out  width=16 height=16 fill=$ink-3
+      [text] Label "Sair"  fill=$ink-2 fontSize=13.5 fontWeight=500
+  [frame] Main  width=fill_container height=fill_container layout=vertical
+    [frame] Top Bar  width=fill_container height=64 gap=16 padding=[0, 32] stroke=$rule
+      [frame] Breadcrumb  width=fill_container gap=8
+        [text] Root "Service desk de TI"
+        [icon] Sep icon=chevron-right
+        [text] Here "Atendimento"
+      [frame] Status  fill=$success-soft gap=7 padding=[5, 10] cornerRadius=999
+        [ellipse] Dot
+        [text] Label "Assistente online"
+    [frame] Columns  width=fill_container height=fill_container
+      [frame] Chat  width=fill_container height=fill_container layout=vertical
+        [frame] Messages
+          [frame] User Message
+            [frame] Bubble
+              [text] Text "Meu notebook não conecta na VPN desde ontem. Aparece o erro 809."
+          [frame] Agent Message
+            [frame] Status Line
+              [text] Who "Nexo Assist"
+              [frame] consultou seus chamados
+                [icon] Done icon=check
+                [text] Label "consultou seus chamados"
+              [frame] buscou na central de ajuda
+                [icon] Done icon=check
+                [text] Label "buscou na central de ajuda"
+            [frame] Bubble
+              [text] Text "Não há chamado aberto sobre VPN, e o artigo do erro 809 vale só para Windows 10 — o seu é Windows 11. Vou abrir um chamado."
+              [text] Question "Quem está sendo afetado?"
+              [frame] Options
+                [frame] Só eu
+                  [text] Label "Só eu"
+                [frame] Minha equipe
+                  [text] Label "Minha equipe"
+                [frame] Toda a empresa
+                  [text] Label "Toda a empresa"
+                [frame] Não sei
+                  [text] Label "Não sei"
+          [frame] User Message
+            [frame] Bubble
+              [text] Text "Só eu. Tenho reunião com um cliente às 14h e preciso da VPN funcionando."
+          [frame] Agent Message
+            [frame] Status Line
+              [text] Who "Nexo Assist"
+              [frame] classificou a prioridade
+                [icon] Done icon=check
+                [text] Label "classificou a prioridade"
+              [frame] consultou o SLA
+                [icon] Done icon=check
+                [text] Label "consultou o SLA"
+              [frame] montou o rascunho
+                [icon] Done icon=check
+                [text] Label "montou o rascunho"
+            [frame] Bubble
+              [text] Text "Coloquei prioridade alta por causa da reunião — a resposta chega antes das 14h. Confira antes de eu criar:"
+            [frame] Confirmation Card
+              [frame] Body
+                [frame] Eyebrow
+                  [text] Kind "Novo chamado"
+                  [ellipse] Sep
+                  [text] Draft "Rascunho D-381"
+                  [frame] Spacer
+                  [frame] State
+                    [ellipse] Dot
+                    [text] Label "Aguardando confirmação"
+                [text] Title "VPN não conecta no notebook — erro 809"
+                [text] Description "Desde 20/10 o notebook (Windows 11) não conecta na VPN e mostra o erro 809. Precisa dela para a reunião das 14h."
+              [frame] Fields
+                [frame] Grid
+                  [frame] Categoria
+                    [text] Key "Categoria"
+                    [frame] Value
+                      [text] Text "Rede e VPN"
+                  [frame] Prioridade
+                    [text] Key "Prioridade"
+                    [frame] Value
+                      [frame] Badge
+                        [ellipse] Dot
+                        [text] Label "Alta"
+                      [text] Due "· resposta até 13:43"
+                  [frame] Afetados
+                    [text] Key "Afetados"
+                    [frame] Value
+                      [text] Text "Somente você"
+              [frame] Actions
+                [frame] Confirmar
+                  [text] Label "Confirmar"
+                  [frame] Kbd
+                    [text] Keys "⌘↵"
+                [frame] Editar
+                  [text] Label "Editar"
+                [frame] Cancelar
+                  [text] Label "Cancelar"
+                [frame] Gap
+        [frame] Composer Area
+          [frame] Composer
+            [text] Placeholder "Escreva para o Nexo…"
+            [frame] Enviar
+              [icon] Icon icon=arrow-up
+              [text] Label "Enviar"
+          [frame] Meta
+            [text] Counter "18/30 mensagens nesta sessão"
+[frame] Chat — Consulta e transferência (desktop)  width=1440 height=900 fill=$paper
+  [frame] Sidebar  width=232 height=fill_container layout=vertical padding=[20, 14, 14, 14] stroke=$rule
+    [frame] Logo  gap=10 padding=[0, 8]
+      [frame] Nexo Mark  width=20 height=20 layout=none
+        [rectangle] 
+      [text] Name "Nexo Assist"  fill=$ink fontSize=16 fontWeight=700
+    [frame] Gap1  width=fill_container height=22
+    [frame] Nav  width=fill_container layout=vertical gap=2
+      [frame] Atendimento  width=fill_container height=36 fill=$primary-soft gap=10 padding=[0, 10] cornerRadius=8
+        [icon] Icon icon=message-square
+        [text] Label "Atendimento"
+      [frame] Meu perfil  width=fill_container height=36 gap=10 padding=[0, 10] cornerRadius=8
+        [icon] Icon icon=user-round
+        [text] Label "Meu perfil"
+    [frame] Spacer  width=fill_container height=fill_container
+    [frame] User  width=fill_container gap=10 padding=[14, 8, 4, 8] stroke=$rule
+      [frame] Avatar  width=34 height=34 fill=$primary-soft cornerRadius=999
+        [text] Initials "AS"
+      [frame] Text  width=fill_container layout=vertical gap=1
+        [text] Name "Ana Souza"
+        [text] Email "ana.souza@nexo.com.br"
+    [frame] Sair  width=fill_container height=34 gap=10 padding=[0, 10] cornerRadius=8
+      [icon] Icon icon=log-out  width=16 height=16 fill=$ink-3
+      [text] Label "Sair"  fill=$ink-2 fontSize=13.5 fontWeight=500
+  [frame] Main  width=fill_container height=fill_container layout=vertical
+    [frame] Top Bar  width=fill_container height=64 gap=16 padding=[0, 32] stroke=$rule
+      [frame] Breadcrumb  width=fill_container gap=8
+        [text] Root "Service desk de TI"
+        [icon] Sep icon=chevron-right
+        [text] Here "Atendimento"
+      [frame] Status  fill=$success-soft gap=7 padding=[5, 10] cornerRadius=999
+        [ellipse] Dot
+        [text] Label "Assistente online"
+    [frame] Columns  width=fill_container height=fill_container
+      [frame] Chat  width=fill_container height=fill_container layout=vertical
+        [frame] Messages
+          [frame] User Message
+            [frame] Bubble
+              [text] Text "Qual o status do meu chamado?"
+          [frame] Agent Message
+            [frame] Status Line
+              [text] Who "Nexo Assist"
+              [frame] consultou seus chamados
+                [icon] Done icon=check
+                [text] Label "consultou seus chamados"
+            [frame] Bubble
+              [text] Text "Você tem 3 chamados abertos. Sobre qual deles quer saber?"
+            [frame] Ticket Selector
+              [frame] INC-20311
+                [ellipse] Radio
+                [text] Number "INC-20311"
+                [text] Title "Notebook lento após atualização"
+                [frame] Status
+                  [ellipse] Dot
+                  [text] Label "Aguardando analista"
+                [text] Date "16 out"
+              [frame] INC-20298
+                [ellipse] Radio
+                [text] Number "INC-20298"
+                [text] Title "Acesso à pasta Financeiro no SharePoint"
+                [frame] Status
+                  [ellipse] Dot
+                  [text] Label "Em andamento"
+                [text] Date "14 out"
+              [frame] REQ-10442
+                [ellipse] Radio
+                [text] Number "REQ-10442"
+                [text] Title "Segundo monitor para home office"
+                [frame] Status
+                  [ellipse] Dot
+                  [text] Label "Aprovado"
+                [text] Date "09 out"
+          [frame] User Message
+            [frame] Bubble
+              [text] Text "INC-20311 · Notebook lento após atualização"
+          [frame] Agent Message
+            [frame] Status Line
+              [text] Who "Nexo Assist"
+              [frame] consultou o INC-20311
+                [icon] Done icon=check
+                [text] Label "consultou o INC-20311"
+              [frame] calculou o prazo
+                [icon] Done icon=check
+                [text] Label "calculou o prazo"
+            [frame] Ticket Card
+              [frame] Body
+                [frame] Eyebrow
+                  [text] Kind "Chamado"
+                  [ellipse] Sep
+                  [text] Number "INC-20311"
+                  [frame] Spacer
+                  [frame] Status
+                    [ellipse] Dot
+                    [text] Label "Aguardando analista"
+                [text] Title "Notebook lento após atualização do Windows"
+                [text] Description "Lentidão geral desde a atualização de 15/10. Reiniciar e rodar o diagnóstico da central não resolveu."
+              [frame] Fields
+                [frame] Grid
+                  [frame] Categoria
+                    [text] Key "Categoria"
+                    [text] Value "Hardware › Notebook"
+                  [frame] Prioridade
+                    [text] Key "Prioridade"
+                    [frame] Value
+                      [ellipse] Dot
+                      [text] Label "Média"
+                  [frame] Aberto em
+                    [text] Key "Aberto em"
+                    [text] Value "16 out, 14:20"
+                  [frame] Última atualização
+                    [text] Key "Última atualização"
+                    [frame] Value
+                      [text] Label "há 5 dias"
+                      [text] Note "· prazo vencido"
+            [frame] Bubble
+              [text] Text "Está sem atualização há 5 dias, acima do prazo de 3 dias úteis para prioridade média. Quer que eu chame um analista?"
+              [frame] Options
+                [frame] Falar com um analista
+                  [text] Label "Falar com um analista"
+                [frame] Adicionar informação
+                  [text] Label "Adicionar informação"
+                [frame] Não, obrigado
+                  [text] Label "Não, obrigado"
+        [frame] Composer Area
+          [frame] Composer
+            [text] Placeholder "Escreva para o Nexo…"
+            [frame] Enviar
+              [icon] Icon icon=arrow-up
+              [text] Label "Enviar"
+          [frame] Meta
+            [text] Counter "16/30 mensagens nesta sessão"
+[frame] Atendente — Conversas (desktop)  width=1440 height=900 fill=$paper
+  [frame] Rail  width=64 height=fill_container fill=$desk layout=vertical gap=6 padding=[16, 0] stroke=$rule
+    [frame] Logo  width=40 height=40 padding=[0, 0, 8, 0]
+      [frame] Nexo Mark  width=22 height=22 layout=none
+        [rectangle] 
+    [frame] Conversas  width=40 height=40 fill=$paper cornerRadius=12
+      [icon] Icon icon=message-circle  width=19 height=19 fill=$ink
+      [frame] Badge  height=16 fill=$cta padding=[0, 5] cornerRadius=999 stroke=$desk
+        [text] N "5"
+    [frame] Spacer  width=1 height=fill_container
+    [frame] Me  width=36 height=36 fill=$primary-soft cornerRadius=999
+      [text] Initials "RL"  fill=$primary-text fontSize=12.5 fontWeight=700
+      [ellipse] Online  width=10 height=10 fill=$success stroke=$desk
+  [frame] Chat List  width=380 height=fill_container layout=vertical stroke=$rule
+    [frame] Header  width=fill_container layout=vertical gap=12 padding=[16, 16, 10, 16]
+      [frame] Title Row  width=fill_container gap=8
+        [text] Title "Conversas"
+        [frame] Availability
+          [ellipse] Dot
+          [text] Label "Disponível"
+      [frame] Search  width=fill_container height=36 fill=$desk gap=10 padding=[0, 12] cornerRadius=999
+        [icon] Icon icon=search
+        [text] Placeholder "Pesquisar conversa ou chamado"
+      [frame] Filters  gap=4
+        [frame] Todas
+          [text] Label "Todas"
+        [frame] Precisam de você
+          [text] Label "Para você"
+          [text] Count "3"
+        [frame] Com o agent
+          [text] Label "Com o agent"
+          [text] Count "9"
+        [frame] Minhas
+          [text] Label "Minhas"
+          [text] Count "1"
+    [frame] Items  width=fill_container height=fill_container layout=vertical padding=[0, 8]
+      [frame] Ana Souza  width=fill_container fill=$desk gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "AS"
+          [ellipse] Online
+        [frame] Text
+          [frame] Top
+            [text] Name "Ana Souza"
+            [text] Time "10:05"
+          [frame] Bottom
+            [text] Last "Está parado há 5 dias. Quero falar com…"
+            [frame] Unread
+              [text] N "2"
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Transferida · INC-20311"
+      [frame] Carla Mendes  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "CM"
+          [ellipse] Online
+        [frame] Text
+          [frame] Top
+            [text] Name "Carla Mendes"
+            [text] Time "09:58"
+          [frame] Bottom
+            [text] Last "Preciso de acesso ao SAP ainda hoje"
+            [frame] Unread
+              [text] N "1"
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Transferida · contato em 25 min"
+      [frame] Bruno Tavares  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "BT"
+        [frame] Text
+          [frame] Top
+            [text] Name "Bruno Tavares"
+            [text] Time "09:51"
+          [frame] Bottom
+            [icon] Ticks icon=check-check
+            [text] Last "Nexo: Vou chamar um analista para isso."
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Agent pediu ajuda · confiança 41%"
+      [frame] Diego Ramos  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "DR"
+          [ellipse] Online
+        [frame] Text
+          [frame] Top
+            [text] Name "Diego Ramos"
+            [text] Time "agora"
+          [frame] Bottom
+            [text] Last "digitando…"
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Agent atendendo"
+      [frame] Elisa Prado  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "EP"
+        [frame] Text
+          [frame] Top
+            [text] Name "Elisa Prado"
+            [text] Time "10:03"
+          [frame] Bottom
+            [icon] Ticks icon=check-check
+            [text] Last "Nexo: Chamado INC-20519 criado."
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Agent atendendo"
+      [frame] Fábio Nunes  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "FN"
+        [frame] Text
+          [frame] Top
+            [text] Name "Fábio Nunes"
+            [text] Time "10:01"
+          [frame] Bottom
+            [text] Last "Isso resolveu, obrigado!"
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Resolvida pelo agent"
+      [frame] Gabriela Rocha  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "GR"
+        [frame] Text
+          [frame] Top
+            [text] Name "Gabriela Rocha"
+            [text] Time "ontem"
+          [frame] Bottom
+            [icon] Ticks icon=check-check
+            [text] Last "Nexo: A senha do Wi-Fi foi enviada…"
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Resolvida pelo agent"
+  [frame] Conversation  width=fill_container height=fill_container fill=#EEF1F5 layout=vertical
+    [frame] Header  width=fill_container height=64 fill=$paper gap=12 padding=[0, 16, 0, 20] stroke=$rule
+      [frame] Avatar  width=40 height=40 fill=#DCE9F7 cornerRadius=999
+        [text] Initials "AS"
+      [frame] Who  width=fill_container layout=vertical gap=2
+        [text] Name "Ana Souza"
+        [text] Meta "online · Financeiro · INC-20311"
+      [frame] Mode  fill=$warning-soft gap=7 padding=[6, 11] cornerRadius=999
+        [icon] Icon icon=bot
+        [text] Label "Aguardando atendente"
+      [frame] search  width=36 height=36 cornerRadius=999
+        [icon] Icon icon=search
+      [frame] ellipsis-vertical  width=36 height=36 cornerRadius=999
+        [icon] Icon icon=ellipsis-vertical
+    [frame] Messages  width=fill_container height=fill_container layout=vertical padding=[20, 40, 16, 40]
+      [frame] Day  width=fill_container gap=12 padding=[0, 0, 4, 0]
+        [frame] Pill
+          [text] Label "Hoje"
+      [frame] Client Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Bubble
+          [text] Text "Qual o status do meu chamado?"
+          [frame] Meta
+            [text] Time "10:01"
+      [frame] Agent Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Sender
+          [text] Name "Nexo Assist"
+          [frame] Tag
+            [text] Label "IA"
+        [frame] Bubble
+          [text] Text "Você tem 3 chamados abertos. Sobre qual deles quer saber?"
+          [frame] Meta
+            [text] Time "10:01"
+            [icon] Ticks icon=check-check
+      [frame] Client Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Bubble
+          [text] Text "INC-20311 · Notebook lento após atualização"
+          [frame] Meta
+            [text] Time "10:02"
+      [frame] Agent Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Sender
+          [text] Name "Nexo Assist"
+          [frame] Tag
+            [text] Label "IA"
+        [frame] Bubble
+          [text] Text "Está sem atualização há 5 dias, acima do prazo de 3 dias úteis. Quer que eu chame um analista?"
+          [frame] Meta
+            [text] Time "10:02"
+            [icon] Ticks icon=check-check
+      [frame] Client Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Bubble
+          [text] Text "Está parado há 5 dias."
+          [frame] Meta
+            [text] Time "10:04"
+      [frame] Client Message  width=fill_container layout=vertical gap=4 padding=[3, 0, 0, 0]
+        [frame] Bubble
+          [text] Text "Quero falar com um analista."
+          [frame] Meta
+            [text] Time "10:04"
+      [frame] Agent Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Sender
+          [text] Name "Nexo Assist"
+          [frame] Tag
+            [text] Label "IA"
+        [frame] Bubble
+          [text] Text "Encaminhei para o Suporte N2. Um analista vai falar com você em até 2 h úteis."
+          [frame] Meta
+            [text] Time "10:05"
+            [icon] Ticks icon=check-check
+      [frame] System  width=fill_container gap=12 padding=[18, 0, 4, 0]
+        [rectangle] Line
+        [frame] Label
+          [icon] Icon icon=arrow-right-left
+          [text] Text "Transferida para Suporte N2 · 10:05"
+        [rectangle] Line
+    [frame] Takeover Bar  width=fill_container fill=$paper layout=vertical gap=10 padding=[12, 20, 14, 20] stroke=$rule
+      [frame] Row  width=fill_container gap=12
+        [frame] Icon Wrap
+          [icon] Icon icon=hand
+        [frame] Text
+          [text] Title "Ana espera um atendente"
+          [text] Body "Agent pausado · até 12:05"
+        [frame] Devolver
+          [icon] Icon icon=bot
+          [text] Label "Devolver ao agent"
+        [frame] Assumir atendimento
+          [icon] Icon icon=headset
+          [text] Label "Assumir atendimento"
+      [frame] Composer (locked)  width=fill_container height=44 gap=12
+        [frame] Input
+          [text] Placeholder "Assuma o atendimento para responder"
+  [frame] Ticket History  width=340 height=fill_container fill=$paper layout=vertical stroke=$rule
+    [frame] Header  width=fill_container height=64 gap=8 padding=[0, 14, 0, 20] stroke=$rule
+      [frame] Title  width=fill_container layout=vertical gap=2
+        [text] Title "Chamados da Ana"
+        [text] Meta "3 abertos · 2 encerrados"
+      [frame] Close  width=36 height=36 cornerRadius=999
+        [icon] Icon icon=x
+    [frame] Body  width=fill_container height=fill_container layout=vertical gap=32 padding=[24, 20, 20, 20]
+      [frame] Desta conversa  width=fill_container layout=vertical gap=12
+        [text] Label "Desta conversa"
+        [frame] Current Ticket
+          [frame] Summary
+            [frame] Row
+              [text] Number "INC-20311"
+              [frame] Status
+                [ellipse] Dot
+                [text] Label "Aguardando analista"
+            [text] Title "Notebook lento após atualização"
+            [text] Meta "Hardware · prioridade média"
+          [frame] Last Event
+            [icon] Icon icon=arrow-right-left
+            [text] Text "Transferido para um analista"
+            [text] Time "10:05"
+      [frame] Outros chamados  width=fill_container layout=vertical gap=4
+        [text] Label "Outros chamados"
+        [frame] INC-20298
+          [ellipse] Dot
+          [frame] Text
+            [text] Title "Acesso à pasta Financeiro"
+            [text] Meta "INC-20298 · Em andamento"
+          [icon] Chevron icon=chevron-right
+        [frame] REQ-10442
+          [ellipse] Dot
+          [frame] Text
+            [text] Title "Segundo monitor para home office"
+            [text] Meta "REQ-10442 · Aprovado"
+          [icon] Chevron icon=chevron-right
+        [frame] INC-19877
+          [ellipse] Dot
+          [frame] Text
+            [text] Title "Outlook não sincroniza no celular"
+            [text] Meta "INC-19877 · Resolvido em 02 set"
+          [icon] Chevron icon=chevron-right
+        [frame] INC-19410
+          [ellipse] Dot
+          [frame] Text
+            [text] Title "Troca de senha da rede"
+            [text] Meta "INC-19410 · Resolvido em 11 jul"
+          [icon] Chevron icon=chevron-right
+    [frame] Footer  width=fill_container padding=[12, 16, 16, 16] stroke=$rule
+      [frame] Ver todos  width=fill_container height=36 gap=7 cornerRadius=8 stroke=#1B24311F
+        [text] Label "Ver todos os chamados da Ana"
+        [icon] Icon icon=arrow-up-right
+[frame] Atendente — Atendimento assumido (desktop)  width=1567 height=900 fill=$paper
+  [frame] Rail  width=64 height=fill_container fill=$desk layout=vertical gap=6 padding=[16, 0] stroke=$rule
+    [frame] Logo  width=40 height=40 padding=[0, 0, 8, 0]
+      [frame] Nexo Mark  width=22 height=22 layout=none
+        [rectangle] 
+    [frame] Conversas  width=40 height=40 fill=$paper cornerRadius=12
+      [icon] Icon icon=message-circle  width=19 height=19 fill=$ink
+      [frame] Badge  height=16 fill=$cta padding=[0, 5] cornerRadius=999 stroke=$desk
+        [text] N "5"
+    [frame] Spacer  width=1 height=fill_container
+    [frame] Me  width=36 height=36 fill=$primary-soft cornerRadius=999
+      [text] Initials "RL"  fill=$primary-text fontSize=12.5 fontWeight=700
+      [ellipse] Online  width=10 height=10 fill=$success stroke=$desk
+  [frame] Chat List  width=380 height=fill_container layout=vertical stroke=$rule
+    [frame] Header  width=fill_container layout=vertical gap=12 padding=[16, 16, 10, 16]
+      [frame] Title Row  width=fill_container gap=8
+        [text] Title "Conversas"
+        [frame] Availability
+          [ellipse] Dot
+          [text] Label "Disponível"
+      [frame] Search  width=fill_container height=36 fill=$desk gap=10 padding=[0, 12] cornerRadius=999
+        [icon] Icon icon=search
+        [text] Placeholder "Pesquisar conversa ou chamado"
+      [frame] Filters  gap=4
+        [frame] Todas
+          [text] Label "Todas"
+        [frame] Precisam de você
+          [text] Label "Para você"
+          [text] Count "3"
+        [frame] Com o agent
+          [text] Label "Com o agent"
+          [text] Count "9"
+        [frame] Minhas
+          [text] Label "Minhas"
+          [text] Count "1"
+    [frame] Items  width=fill_container height=fill_container layout=vertical padding=[0, 8]
+      [frame] Ana Souza  width=fill_container fill=$desk gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "AS"
+          [ellipse] Online
+        [frame] Text
+          [frame] Top
+            [text] Name "Ana Souza"
+            [text] Time "10:05"
+          [frame] Bottom
+            [text] Last "Posso sim, está ligado."
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Você está atendendo"
+      [frame] Carla Mendes  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "CM"
+          [ellipse] Online
+        [frame] Text
+          [frame] Top
+            [text] Name "Carla Mendes"
+            [text] Time "09:58"
+          [frame] Bottom
+            [text] Last "Preciso de acesso ao SAP ainda hoje"
+            [frame] Unread
+              [text] N "1"
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Transferida · contato em 25 min"
+      [frame] Bruno Tavares  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "BT"
+        [frame] Text
+          [frame] Top
+            [text] Name "Bruno Tavares"
+            [text] Time "09:51"
+          [frame] Bottom
+            [icon] Ticks icon=check-check
+            [text] Last "Nexo: Vou chamar um analista para isso."
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Agent pediu ajuda · confiança 41%"
+      [frame] Diego Ramos  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "DR"
+          [ellipse] Online
+        [frame] Text
+          [frame] Top
+            [text] Name "Diego Ramos"
+            [text] Time "agora"
+          [frame] Bottom
+            [text] Last "digitando…"
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Agent atendendo"
+      [frame] Elisa Prado  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "EP"
+        [frame] Text
+          [frame] Top
+            [text] Name "Elisa Prado"
+            [text] Time "10:03"
+          [frame] Bottom
+            [icon] Ticks icon=check-check
+            [text] Last "Nexo: Chamado INC-20519 criado."
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Agent atendendo"
+      [frame] Fábio Nunes  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "FN"
+        [frame] Text
+          [frame] Top
+            [text] Name "Fábio Nunes"
+            [text] Time "10:01"
+          [frame] Bottom
+            [text] Last "Isso resolveu, obrigado!"
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Resolvida pelo agent"
+      [frame] Gabriela Rocha  width=fill_container gap=12 padding=10 cornerRadius=12
+        [frame] Avatar
+          [text] Initials "GR"
+        [frame] Text
+          [frame] Top
+            [text] Name "Gabriela Rocha"
+            [text] Time "ontem"
+          [frame] Bottom
+            [icon] Ticks icon=check-check
+            [text] Last "Nexo: A senha do Wi-Fi foi enviada…"
+          [frame] Tag
+            [ellipse] Dot
+            [text] Label "Resolvida pelo agent"
+  [frame] Conversation  width=fill_container height=fill_container fill=#EEF1F5 layout=vertical
+    [frame] Header  width=fill_container height=64 fill=$paper gap=12 padding=[0, 16, 0, 20] stroke=$rule
+      [frame] Avatar  width=40 height=40 fill=#DCE9F7 cornerRadius=999
+        [text] Initials "AS"
+      [frame] Who  width=fill_container layout=vertical gap=2
+        [text] Name "Ana Souza"
+        [text] Meta "online · Financeiro"
+      [frame] Devolver  height=36 gap=6 padding=[0, 12, 0, 10] cornerRadius=8 stroke=#1B24311F
+        [icon] Icon icon=bot
+        [text] Label "Devolver ao agent"
+      [frame] Encerrar atendimento  height=36 fill=$danger-soft gap=6 padding=[0, 12, 0, 10] cornerRadius=8
+        [icon] Icon icon=circle-check-big
+        [text] Label "Encerrar atendimento"
+      [frame] ellipsis-vertical  width=36 height=36 cornerRadius=999
+        [icon] Icon icon=ellipsis-vertical
+    [frame] Messages  width=fill_container height=fill_container layout=vertical padding=[20, 40, 16, 40]
+      [frame] Agent Message  width=fill_container layout=vertical gap=4
+        [frame] Sender
+          [text] Name "Nexo Assist"
+          [frame] Tag
+            [text] Label "IA"
+        [frame] Bubble
+          [text] Text "Você tem 3 chamados abertos. Sobre qual deles quer saber?"
+          [frame] Meta
+            [text] Time "10:01"
+            [icon] Ticks icon=check-check
+      [frame] Client Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Bubble
+          [text] Text "INC-20311 · Notebook lento após atualização"
+          [frame] Meta
+            [text] Time "10:02"
+      [frame] Agent Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Sender
+          [text] Name "Nexo Assist"
+          [frame] Tag
+            [text] Label "IA"
+        [frame] Bubble
+          [text] Text "Está sem atualização há 5 dias, acima do prazo de 3 dias úteis. Quer que eu chame um analista?"
+          [frame] Meta
+            [text] Time "10:02"
+            [icon] Ticks icon=check-check
+      [frame] Client Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Bubble
+          [text] Text "Está parado há 5 dias."
+          [frame] Meta
+            [text] Time "10:04"
+      [frame] Client Message  width=fill_container layout=vertical gap=4 padding=[3, 0, 0, 0]
+        [frame] Bubble
+          [text] Text "Quero falar com um analista."
+          [frame] Meta
+            [text] Time "10:04"
+      [frame] Agent Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Sender
+          [text] Name "Nexo Assist"
+          [frame] Tag
+            [text] Label "IA"
+        [frame] Bubble
+          [text] Text "Encaminhei para o Suporte N2. Um analista vai falar com você em até 2 h úteis."
+          [frame] Meta
+            [text] Time "10:05"
+            [icon] Ticks icon=check-check
+      [frame] System  width=fill_container gap=12 padding=[18, 0, 4, 0]
+        [rectangle] Line
+        [frame] Label
+          [icon] Icon icon=arrow-right-left
+          [text] Text "Transferida para Suporte N2 · 10:05"
+        [rectangle] Line
+      [frame] System  width=fill_container gap=12 padding=[18, 0, 4, 0]
+        [rectangle] Line
+        [frame] Label
+          [icon] Icon icon=headset
+          [text] Text "Rafael Lima assumiu · agent pausado · 10:12"
+        [rectangle] Line
+      [frame] Human Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Sender
+          [text] Name "Rafael Lima"
+          [frame] Tag
+            [text] Label "Suporte N2"
+        [frame] Bubble
+          [text] Text "Oi, Ana! Aqui é o Rafael. Já li o histórico e vou verificar o driver de vídeo remotamente. Pode deixar o notebook ligado agora?"
+          [frame] Meta
+            [text] Time "10:12"
+            [icon] Ticks icon=check-check
+      [frame] Client Message  width=fill_container layout=vertical gap=4 padding=[16, 0, 0, 0]
+        [frame] Bubble
+          [text] Text "Posso sim, está ligado."
+          [frame] Meta
+            [text] Time "10:13"
+    [frame] Takeover Bar  width=fill_container fill=$paper layout=vertical gap=10 padding=[10, 20, 14, 20] stroke=$rule
+      [frame] Composer  width=fill_container height=44 gap=12
+        [frame] Input
+          [text] Value "Ótimo! Vou iniciar o acesso remoto, é só aceitar o pedido que vai aparecer na tela|"
+        [frame] Send
+          [icon] Icon icon=send-horizontal
+  [frame] Ticket History  width=340 height=fill_container fill=$paper layout=vertical stroke=$rule
+    [frame] Header  width=fill_container height=64 gap=8 padding=[0, 14, 0, 20] stroke=$rule
+      [frame] Title  width=fill_container layout=vertical gap=2
+        [text] Title "Chamados da Ana"
+        [text] Meta "3 abertos · 2 encerrados"
+      [frame] Close  width=36 height=36 cornerRadius=999
+        [icon] Icon icon=x
+    [frame] Body  width=fill_container height=fill_container layout=vertical gap=32 padding=[24, 20, 20, 20]
+      [frame] Desta conversa  width=fill_container layout=vertical gap=12
+        [text] Label "Desta conversa"
+        [frame] Current Ticket
+          [frame] Summary
+            [frame] Row
+              [text] Number "INC-20311"
+              [frame] Status
+                [ellipse] Dot
+                [text] Label "Em atendimento"
+            [text] Title "Notebook lento após atualização"
+            [text] Meta "Hardware · prioridade média"
+          [frame] Last Event
+            [icon] Icon icon=headset
+            [text] Text "Assumido por Rafael Lima"
+            [text] Time "10:12"
+      [frame] Outros chamados  width=fill_container layout=vertical gap=4
+        [text] Label "Outros chamados"
+        [frame] INC-20298
+          [ellipse] Dot
+          [frame] Text
+            [text] Title "Acesso à pasta Financeiro"
+            [text] Meta "INC-20298 · Em andamento"
+          [icon] Chevron icon=chevron-right
+        [frame] REQ-10442
+          [ellipse] Dot
+          [frame] Text
+            [text] Title "Segundo monitor para home office"
+            [text] Meta "REQ-10442 · Aprovado"
+          [icon] Chevron icon=chevron-right
+        [frame] INC-19877
+          [ellipse] Dot
+          [frame] Text
+            [text] Title "Outlook não sincroniza no celular"
+            [text] Meta "INC-19877 · Resolvido em 02 set"
+          [icon] Chevron icon=chevron-right
+        [frame] INC-19410
+          [ellipse] Dot
+          [frame] Text
+            [text] Title "Troca de senha da rede"
+            [text] Meta "INC-19410 · Resolvido em 11 jul"
+          [icon] Chevron icon=chevron-right
+    [frame] Footer  width=fill_container padding=[12, 16, 16, 16] stroke=$rule
+      [frame] Ver todos  width=fill_container height=36 gap=7 cornerRadius=8 stroke=#1B24311F
+        [text] Label "Ver todos os chamados da Ana"
+        [icon] Icon icon=arrow-up-right
+[frame] Cliente — Meu perfil (desktop)  width=1440 height=900 fill=$paper
+  [frame] Sidebar  width=232 height=fill_container layout=vertical padding=[20, 14, 14, 14] stroke=$rule
+    [frame] Logo  gap=10 padding=[0, 8]
+      [frame] Nexo Mark  width=20 height=20 layout=none
+        [rectangle] 
+      [text] Name "Nexo Assist"  fill=$ink fontSize=16 fontWeight=700
+    [frame] Gap1  width=fill_container height=22
+    [frame] Nav  width=fill_container layout=vertical gap=2
+      [frame] Atendimento  width=fill_container height=36 fill=#00000000 gap=10 padding=[0, 10] cornerRadius=8
+        [icon] Icon icon=message-square
+        [text] Label "Atendimento"
+      [frame] Meu perfil  width=fill_container height=36 fill=$primary-soft gap=10 padding=[0, 10] cornerRadius=8
+        [icon] Icon icon=user-round
+        [text] Label "Meu perfil"
+    [frame] Spacer  width=fill_container height=fill_container
+    [frame] User  width=fill_container gap=10 padding=[14, 8, 4, 8] stroke=$rule
+      [frame] Avatar  width=34 height=34 fill=$primary-soft cornerRadius=999
+        [text] Initials "AS"
+      [frame] Text  width=fill_container layout=vertical gap=1
+        [text] Name "Ana Souza"
+        [text] Email "ana.souza@nexo.com.br"
+    [frame] Sair  width=fill_container height=34 gap=10 padding=[0, 10] cornerRadius=8
+      [icon] Icon icon=log-out  width=16 height=16 fill=$ink-3
+      [text] Label "Sair"  fill=$ink-2 fontSize=13.5 fontWeight=500
+  [frame] Main  width=fill_container height=fill_container layout=vertical
+    [frame] Top Bar  width=fill_container height=64 gap=16 padding=[0, 32] stroke=$rule
+      [frame] Breadcrumb  width=fill_container gap=8
+        [text] Root "Service desk de TI"
+        [icon] Sep icon=chevron-right
+        [text] Here "Meu perfil"
+    [frame] Columns  width=fill_container height=fill_container
+      [frame] Page  width=fill_container height=fill_container layout=vertical padding=[48, 40]
+        [frame] Content
+          [frame] Heading
+            [text] Title "Meu perfil"
+            [text] Subtitle "Seus dados de acesso ao service desk de TI."
+          [frame] Dados
+            [frame] Nome
+              [text] Key "Nome"
+              [frame] Value
+                [text] Text "Ana Souza"
+            [frame] E-mail corporativo
+              [text] Key "E-mail corporativo"
+              [frame] Value
+                [text] Text "ana.souza@nexo.com.br"
+              [frame] Note
+                [icon] Icon icon=lock
+                [text] Text "Gerenciado pela TI"
+          [frame] Senha
+            [frame] Row
+              [frame] Icon Wrap
+                [icon] Icon icon=key-round
+              [frame] Text
+                [text] Title "Senha"
+                [text] Meta "Alterada há 42 dias"
+              [frame] Redefinir senha
+                [icon] Icon icon=rotate-ccw-key
+                [text] Label "Redefinir senha"
+            [frame] Helper
+              [icon] Icon icon=mail
+              [text] Text "Enviaremos um link de redefinição para ana.souza@nexo.com.br."
