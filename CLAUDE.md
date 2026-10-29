@@ -16,14 +16,15 @@ Agent de service desk de TI (desafio técnico). Desenvolvimento **spec-driven**:
   - `packages/core/src/application/ports/in`: interfaces dos casos de uso (o que o mundo externo pode pedir ao sistema).
   - `packages/core/src/application/ports/out`: interfaces do que o sistema precisa do mundo externo (repositórios, serviço de chamados, LLM/agent, relógio).
   - `packages/core/src/application/use-cases`: implementações das portas `in`, dependendo apenas de portas `out`.
-  - `packages/infra`: adapters de saída (Postgres/Drizzle, cliente HTTP do serviço de chamados, Mastra).
+  - `packages/infra`: adapters de saída (Postgres via postgres.js com SQL puro, cliente HTTP do serviço de chamados, Mastra).
   - `apps/web`: adapters de entrada (rotas Next.js, UI) e o composition root (`src/server/container.ts`).
   - Dependências sempre apontam para dentro: `apps/* → infra → core`. `core` nunca importa de `infra` ou `apps`.
 - Regras do Anexo A (prioridade, SLA, vencimento, reabertura, duplicidade, transferência) são **código puro no domínio**, nunca só prompt.
 - Identidade do funcionário vem da sessão, nunca de argumentos gerados pelo LLM.
 - Validação de fronteira com Zod (HTTP, saída do LLM, variáveis de ambiente).
 - Erros esperados como valores (`Result`) no core; exceções só para o inesperado.
-- Comentários só quando o "porquê" não é óbvio. Código e nomes de domínio em inglês; textos para o usuário em pt-BR.
+- **Sem comentários no código**: nada de `//` ou `/* */` explicativos nem JSDoc. O código deve se explicar por nomes claros e funções pequenas. Se algo precisa de explicação, renomeie ou extraia; decisões de design vão em `specs/design.md`.
+- Código e nomes de domínio em inglês; textos para o usuário em pt-BR.
 
 ## Comandos
 ```bash

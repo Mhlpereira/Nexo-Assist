@@ -30,7 +30,7 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 - [ ] **T3.5** Casos de uso de conversa e console (get/start, messages since, list, detail, take over, return, close, analyst message). · REQ-CHAT-06, REQ-CON-* · unit
 
 ## Fase 4 — Adapters de saída (infra)
-- [ ] **T4.1** Schema `app` (Drizzle), migrations, repositórios (conversations com `version`, messages, traces, users) e seed de usuários. · NFR-02 · integração
+- [ ] **T4.1** Schema `app` (SQL), migrations, repositórios (conversations com `version`, messages, traces, users) e seed de usuários. · NFR-02 · integração
 - [ ] **T4.2** Central de ajuda: tabela + 8 artigos + busca full-text `portuguese`. · REQ-KB-01 · integração
 - [ ] **T4.3** Tickets client HTTP com timeout, retry/backoff/jitter e contagem de tentativas. · NFR-06, P7 · unit (fetch fake)
 - [ ] **T4.4** Mastra: provedor configurável (`LLM_MODEL`, Gemini/Ollama), `Interpreter` com structured output + retry de validação. · NFR-04, GR-08

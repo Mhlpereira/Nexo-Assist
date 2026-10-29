@@ -10,7 +10,7 @@ Referências entre colchetes apontam para [requirements.md](requirements.md) e [
 | Framework do agent | **Mastra** (Agent + tools + structured output + processors) | Preferência do PRD; tools tipadas com Zod |
 | LLM | **Google Gemini Flash (tier gratuito do AI Studio)**, configurável por `LLM_MODEL`; alternativa offline: **Ollama** local | [P6, NFR-04] custo zero, bom tool calling e pt-BR. Trocar provedor = trocar env, nada no core |
 | Interface | Next.js (App Router) + Tailwind, seguindo `docs/prototype/nexo.pen` | Sugestão do PRD; rotas de API servem de adapter de entrada |
-| Persistência | Postgres 16 (docker compose) + Drizzle ORM | [NFR-02] escolha do usuário; schemas separados `app` e `tickets` |
+| Persistência | Postgres 16 (docker compose) + postgres.js com SQL puro e migrations em `.sql` | [NFR-02] escolha do usuário; schemas separados `app` e `tickets` |
 | Serviço de chamados | Processo separado (Hono, porta 4001), schema próprio | [REQ-SVC-01] simula o legado, com instabilidade injetável |
 | Central de ajuda | Postgres full-text search (`portuguese`) | [P6] sem embeddings pagos; 5–10 artigos não justificam vetores |
 | Tempo real | SSE para o turno do agent; polling (2 s) para mensagens humanas e lista do console | Simplicidade [P8]; suficiente para REQ-CON-06 |
@@ -41,7 +41,7 @@ nexus/
 │   │           └── use-cases/    # implementações
 │   └── infra/                    # ADAPTERS DE SAÍDA
 │       └── src/
-│           ├── db/               # schema Drizzle, migrations, repositórios
+│           ├── db/               # migrations SQL, repositórios
 │           ├── tickets-client/   # HTTP + retry/backoff/idempotência
 │           ├── knowledge-base/   # busca full-text
 │           └── mastra/           # Interpreter e Responder (Mastra), processors
