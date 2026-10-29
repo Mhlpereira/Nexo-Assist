@@ -20,6 +20,7 @@ const interpretation = (overrides: Partial<Interpretation>): Interpretation => (
 
 const draft: Draft = {
   id: 'D-381',
+  idempotencyKey: 'key-1',
   mode: 'create',
   ticketId: null,
   title: 'VPN',

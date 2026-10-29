@@ -23,11 +23,11 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 - [x] **T2.3** Idempotência e chaos (503 + latência configuráveis). · REQ-SVC-03/04 · integração
 
 ## Fase 3 — Portas e casos de uso
-- [ ] **T3.1** Portas `in` e `out` (interfaces) conforme design §3. · P9
-- [ ] **T3.2** Fakes em memória das portas `out` para testes.
-- [ ] **T3.3** `HandleEmployeeInput` — passos 0, 1, 2 (determinísticos): agent pausado, guardrails, limite de 30, ações estruturadas (confirmar/cancelar rascunho, selecionar chamado, opções). · REQ-CHAT-04/05, REQ-OPEN-05, GR-02/07/09 · unit
-- [ ] **T3.4** `HandleEmployeeInput` — passos 3–7 com Interpreter/Responder fakes; `TurnTools`; montagem do DecisionTrace. · REQ-TRC-01, GR-01/03/08 · unit
-- [ ] **T3.5** Casos de uso de conversa e console (get/start, messages since, list, detail, take over, return, close, analyst message). · REQ-CHAT-06, REQ-CON-* · unit
+- [x] **T3.1** Portas `in` e `out` (interfaces) conforme design §3. · P9
+- [x] **T3.2** Fakes em memória das portas `out` para testes.
+- [x] **T3.3** `HandleEmployeeInput` — passos 0, 1, 2 (determinísticos): agent pausado, guardrails, limite de 30, ações estruturadas (confirmar/cancelar rascunho, selecionar chamado, opções). · REQ-CHAT-04/05, REQ-OPEN-05, GR-02/07/09 · unit
+- [x] **T3.4** `HandleEmployeeInput` — passos 3–7 com Interpreter/Responder fakes; `TurnTools`; montagem do DecisionTrace. · REQ-TRC-01, GR-01/03/08 · unit
+- [x] **T3.5** Casos de uso de conversa e console (get/start, messages since, list, detail, take over, return, close, analyst message). · REQ-CHAT-06, REQ-CON-* · unit
 
 ## Fase 4 — Adapters de saída (infra)
 - [ ] **T4.1** Schema `app` (SQL), migrations, repositórios (conversations com `version`, messages, traces, users) e seed de usuários. · NFR-02 · integração

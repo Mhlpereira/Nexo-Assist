@@ -32,6 +32,7 @@ export interface Handoff {
 
 export interface Draft {
   id: string
+  idempotencyKey: string
   mode: 'create' | 'update' | 'reopen'
   ticketId: string | null
   title: string
@@ -63,7 +64,7 @@ export interface Conversation {
   createdAt: Date
   updatedAt: Date
   closedAt: Date | null
-  resolution: 'agent' | 'analyst' | null
+  resolution: 'agent' | 'analyst' | 'employee' | null
 }
 
 export const initialState = (): ConversationState => ({
@@ -78,7 +79,7 @@ export type ConversationEvent =
   | { type: 'handoff'; handoff: Handoff }
   | { type: 'take_over'; analystId: string }
   | { type: 'return_to_agent'; analystId: string }
-  | { type: 'close'; by: 'agent' | 'analyst'; analystId: string | null }
+  | { type: 'close'; by: 'agent' | 'analyst' | 'employee'; analystId: string | null }
 
 export type TransitionError = 'invalid_transition' | 'not_assigned_analyst'
 
