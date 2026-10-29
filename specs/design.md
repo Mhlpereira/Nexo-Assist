@@ -286,3 +286,18 @@ Chaos (`chaos.ts`): `CHAOS_FAILURE_RATE` (padrão 0,15) responde 503; `CHAOS_LAT
 - Caminhos determinísticos (botões, confirmações, seleção, handoff pedido explicitamente) não chamam LLM.
 - Turno típico: Interpreter (~1,2 k tokens de entrada, saída curta) + Responder (~2 k + tools). Contexto truncado em 8 mensagens + estado estruturado.
 - Trace registra tokens por turno; console mostra o total por conversa.
+
+## 14. Decisões de implementação (Fase 3)
+
+Ajustes que simplificam o design original, mantendo os requisitos:
+
+- **Trace junto da mensagem**: o `DecisionTrace` fica numa coluna `trace jsonb` da própria mensagem do agent (sem tabela `decision_traces`). Uma consulta traz histórico e traces para o chat e o console.
+- **Mensagem = lista ordenada de blocos**: `text`, `ticket_card`, `ticket_selector`, `draft`, `quick_replies`, `system`. A UI renderiza na ordem; a linha de status vem de `trace.actions`.
+- **Caminhos sem LLM** (P6): botões do rascunho, seleção de chamado (card + oferta de analista quando vencido, com o texto do protótipo), opção rápida "Falar com um analista" (`action:handoff`), redirecionamento fora de escopo, encerramento por "resolvido" e transferência.
+- **Resumo da transferência determinístico**: motivo + o que o agent entendeu + último pedido + chamado envolvido (status/vencimento) + rascunho pendente. Sem chamada extra ao LLM e sem risco de alucinação no resumo que o analista lê.
+- **Falha do LLM**: em vez de erro seco, o agent responde com mensagem de contingência e opções "Tentar de novo" (reenvia o texto) e "Falar com um analista".
+- **Filtro de saída (GR-03) no fim do turno**: o texto final persistido e enviado no evento `done` é o filtrado e substitui o texto do streaming. As tools só retornam chamados do próprio funcionário, então um ID alheio só apareceria por alucinação.
+- **Rascunho**: `id` curto exibido (`D-381`) + `idempotencyKey` (uuid) usado nas escritas do serviço de chamados.
+- **Duplicidade dentro de `prepare_ticket_draft`**: a própria tool consulta os chamados do funcionário (chip "consultou seus chamados") e, havendo duplicata, devolve o chamado existente em vez de rascunho. `list_my_tickets` fica só para consultas e sempre exibe seleção/card.
+- **Concorrência agent × analista**: `conversations.version` (optimistic locking). Se o analista assumir durante um turno, o estado salvo pelo agent é descartado e vale o do analista.
+- **Nova conversa**: o funcionário pode encerrar a conversa atual (resolução `employee`) se ela estiver com o agent.
