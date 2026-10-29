@@ -33,8 +33,8 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 - [x] **T4.1** Schema `app` (SQL), migrations, repositórios (conversations com `version`, messages, traces, users) e seed de usuários. · NFR-02 · integração
 - [x] **T4.2** Central de ajuda: tabela + 8 artigos + busca full-text `portuguese`. · REQ-KB-01 · integração
 - [x] **T4.3** Tickets client HTTP com timeout, retry/backoff/jitter e contagem de tentativas. · NFR-06, P7 · unit (fetch fake)
-- [ ] **T4.4** Mastra: provedor configurável (`LLM_MODEL`, Gemini/Ollama), `Interpreter` com structured output + retry de validação. · NFR-04, GR-08
-- [ ] **T4.5** Mastra: `Responder` (Agent com tools filtradas por intenção, streaming), prompt do sistema com Anexo A, processors de guardrail reutilizando o core, contagem de tokens e orçamento diário. · REQ-KB-*, REQ-STAT-*, REQ-OPEN-*, GR-04/07/10
+- [x] **T4.4** Mastra: provedor configurável (`LLM_MODEL`, Gemini/Ollama), `Interpreter` com structured output + retry de validação. · NFR-04, GR-08
+- [x] **T4.5** Mastra: `Responder` (Agent com tools filtradas por intenção, streaming), prompt do sistema com Anexo A, processors de guardrail reutilizando o core, contagem de tokens e orçamento diário. · REQ-KB-*, REQ-STAT-*, REQ-OPEN-*, GR-04/07/10
 
 ## Fase 5 — Adapter de entrada: API (apps/web)
 - [ ] **T5.1** Composition root (`container.ts`), sessão JWT, middleware de rotas e papéis. · REQ-AUTH-01..04 · integração
