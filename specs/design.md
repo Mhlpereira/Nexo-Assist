@@ -29,7 +29,7 @@ nexus/
 │   │       └── server/
 │   │           ├── container.ts  # instancia adapters e injeta nos use cases
 │   │           └── session.ts
-│   └── tickets-service/          # serviço legado simulado (Hono + Drizzle)
+│   └── tickets-service/          # serviço legado simulado (Hono + postgres.js)
 │       └── src/{app.ts, routes.ts, db.ts, chaos.ts, seed.ts}
 ├── packages/
 │   ├── core/                     # SEM dependências de framework

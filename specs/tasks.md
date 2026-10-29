@@ -4,15 +4,15 @@ Cada task: **cobre** (requisitos) · **verifica** (como sabemos que está pronta
 Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e depois refinar.
 
 ## Fase 0 — Fundação
-- [ ] **T0.1** Monorepo pnpm (`apps/web`, `apps/tickets-service`, `packages/core`, `packages/infra`), `tsconfig.base.json` strict, ESLint com `@typescript-eslint/no-explicit-any: error`, Vitest, Prettier. · cobre NFR-01 · verifica `pnpm typecheck && pnpm lint` verdes
-- [ ] **T0.2** `docker-compose.yml` (Postgres 16), `.env.example`, validação de env com Zod em cada app. · NFR-03, NFR-07 · `docker compose up -d` + app sobe
-- [ ] **T0.3** Tipo `Result<T, E>` e utilitários mínimos no core. · P8 · unit
+- [x] **T0.1** Monorepo pnpm (`apps/web`, `apps/tickets-service`, `packages/core`, `packages/infra`), `tsconfig.base.json` strict, ESLint com `@typescript-eslint/no-explicit-any: error`, Vitest, Prettier. · cobre NFR-01 · verifica `pnpm typecheck && pnpm lint` verdes
+- [x] **T0.2** `docker-compose.yml` (Postgres 16), `.env.example`, validação de env com Zod em cada app. · NFR-03, NFR-07 · `docker compose up -d` + app sobe
+- [x] **T0.3** Tipo `Result<T, E>` e utilitários mínimos no core. · P8 · unit
 
 ## Fase 1 — Domínio (core, sem I/O)
 - [ ] **T1.1** Tipos de domínio: Ticket, Category, Priority, Status, Impact, Draft, Conversation, DecisionTrace. · design §4, §7
-- [ ] **T1.2** SLA em horas/dias úteis + `dueAt` + `isOverdue`. · REQ-STAT-03 · unit (fins de semana, fora do expediente, crítica 24 h)
-- [ ] **T1.3** `computePriority` com justificativa. · REQ-OPEN-04 · unit (tabela do Anexo A)
-- [ ] **T1.4** `findLikelyDuplicate` e `canReopen`/`canUpdate`. · REQ-OPEN-06, REQ-UPD-02, REQ-UPD-03 · unit
+- [x] **T1.2** SLA em horas/dias úteis + `dueAt` + `isOverdue`. · REQ-STAT-03 · unit (fins de semana, fora do expediente, crítica 24 h)
+- [x] **T1.3** `computePriority` com justificativa. · REQ-OPEN-04 · unit (tabela do Anexo A)
+- [x] **T1.4** `findLikelyDuplicate` e `canReopen`/`canUpdate`. · REQ-OPEN-06, REQ-UPD-02, REQ-UPD-03 · unit
 - [ ] **T1.5** Máquina de estados da conversa. · REQ-HAND-06, REQ-CON-04/05 · unit (transições válidas e inválidas)
 - [ ] **T1.6** Guardrails puros: input (tamanho, injection, máscara de segredos) e output (filtro de IDs). · GR-03/04/05/07 · unit
 - [ ] **T1.7** Policy: `(interpretation, state, flags) → Route + rules`. · REQ-HAND-01..04, REQ-SCOPE-01, GR-06 · unit
