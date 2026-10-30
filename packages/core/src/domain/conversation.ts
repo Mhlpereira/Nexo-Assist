@@ -1,4 +1,4 @@
-import { err, ok, type Result } from '../result'
+import { failure, success, type Result } from '../result'
 import type { Category, Impact, Priority, TicketKind } from './ticket'
 
 export const MAX_EMPLOYEE_MESSAGES = 30
@@ -90,21 +90,21 @@ export function transition(
 ): Result<Conversation, TransitionError> {
   const { status } = conversation
   const next = (changes: Partial<Conversation>): Result<Conversation, TransitionError> =>
-    ok({ ...conversation, ...changes, updatedAt: now })
+    success({ ...conversation, ...changes, updatedAt: now })
 
   switch (event.type) {
     case 'handoff':
-      if (status !== 'agent') return err('invalid_transition')
+      if (status !== 'agent') return failure('invalid_transition')
       return next({ status: 'waiting_analyst', state: { ...conversation.state, handoff: event.handoff } })
 
     case 'take_over':
-      if (status !== 'agent' && status !== 'waiting_analyst') return err('invalid_transition')
+      if (status !== 'agent' && status !== 'waiting_analyst') return failure('invalid_transition')
       return next({ status: 'with_analyst', assignedAnalystId: event.analystId })
 
     case 'return_to_agent':
-      if (status !== 'waiting_analyst' && status !== 'with_analyst') return err('invalid_transition')
+      if (status !== 'waiting_analyst' && status !== 'with_analyst') return failure('invalid_transition')
       if (status === 'with_analyst' && conversation.assignedAnalystId !== event.analystId) {
-        return err('not_assigned_analyst')
+        return failure('not_assigned_analyst')
       }
       return next({
         status: 'agent',
@@ -113,9 +113,9 @@ export function transition(
       })
 
     case 'close':
-      if (status === 'closed') return err('invalid_transition')
+      if (status === 'closed') return failure('invalid_transition')
       if (status === 'with_analyst' && conversation.assignedAnalystId !== event.analystId) {
-        return err('not_assigned_analyst')
+        return failure('not_assigned_analyst')
       }
       return next({ status: 'closed', closedAt: now, resolution: event.by })
   }

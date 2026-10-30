@@ -3,7 +3,7 @@ import type { Interpretation } from '../../domain/interpretation'
 import type { Message, NewMessage } from '../../domain/message'
 import type { Ticket } from '../../domain/ticket'
 import { emptyUsage } from '../../domain/trace'
-import { err, ok } from '../../result'
+import { failure, success } from '../../result'
 import type { TurnEventSink } from '../ports/in'
 import type { Clock, ConversationRepository, IdGenerator, Interpreter, KnowledgeBase, Responder, TicketGateway, TurnTools, UserRepository } from '../ports/out'
 import type { Article, ConsoleRow, GatewayCall, RespondRequest, TurnEvent, User } from '../dto'
@@ -60,10 +60,10 @@ export function inMemoryConversations(clock: Clock, users: User[] = [ANA, BRUNO,
     },
     async save(conversation) {
       const stored = conversations.get(conversation.id)
-      if (!stored || stored.version !== conversation.version) return err('version_conflict')
+      if (!stored || stored.version !== conversation.version) return failure('version_conflict')
       const saved = { ...structuredClone(conversation), version: conversation.version + 1 }
       conversations.set(conversation.id, saved)
-      return ok(structuredClone(saved))
+      return success(structuredClone(saved))
     },
     async appendMessage(newMessage: NewMessage) {
       const message: Message = { ...structuredClone(newMessage), id: `msg-${messages.length + 1}`, createdAt: clock.now() }
@@ -113,10 +113,10 @@ export function inMemoryTickets(initial: Ticket[], clock: Clock) {
 
   const respond = <T>(value: T | undefined): GatewayCall<T> =>
     failing
-      ? { result: err({ kind: 'unavailable', attempts: 3 }), attempts: 3 }
+      ? { result: failure({ kind: 'unavailable', attempts: 3 }), attempts: 3 }
       : value === undefined
-        ? { result: err({ kind: 'not_found' }), attempts: 1 }
-        : { result: ok(structuredClone(value)), attempts: 1 }
+        ? { result: failure({ kind: 'not_found' }), attempts: 1 }
+        : { result: success(structuredClone(value)), attempts: 1 }
 
   const gateway: TicketGateway = {
     async listByEmployee(employeeId) {
@@ -196,8 +196,8 @@ export function scriptedInterpreter(script: Interpretation[]) {
     async interpret(request) {
       requests.push(request)
       const next = script.shift()
-      if (!next) return err({ kind: 'unavailable', detail: 'roteiro vazio' })
-      return ok({ interpretation: next, usage: { ...emptyUsage('fake'), calls: 1, inputTokens: 100, outputTokens: 20 } })
+      if (!next) return failure({ kind: 'unavailable', detail: 'roteiro vazio' })
+      return success({ interpretation: next, usage: { ...emptyUsage('fake'), calls: 1, inputTokens: 100, outputTokens: 20 } })
     },
   }
   return { interpreter, requests }
@@ -211,10 +211,10 @@ export function scriptedResponder(script: ResponderStep[]) {
     async respond(request, tools, sink) {
       requests.push(request)
       const step = script.shift()
-      if (!step) return err({ kind: 'unavailable', detail: 'roteiro vazio' })
+      if (!step) return failure({ kind: 'unavailable', detail: 'roteiro vazio' })
       const text = await step(tools, request)
       sink.emit({ type: 'text_delta', text })
-      return ok({ text, usage: { ...emptyUsage('fake'), calls: 1, inputTokens: 200, outputTokens: 40 } })
+      return success({ text, usage: { ...emptyUsage('fake'), calls: 1, inputTokens: 200, outputTokens: 40 } })
     },
   }
   return { responder, requests }

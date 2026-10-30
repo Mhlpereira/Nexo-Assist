@@ -21,7 +21,7 @@ import { formatDue } from '../../domain/sla'
 import { PRIORITY_LABEL, TICKET_ID_PATTERN, type Ticket } from '../../domain/ticket'
 import { canReopen } from '../../domain/ticket-rules'
 import { addUsage, type DecisionTrace, type InputKind, type LlmUsage } from '../../domain/trace'
-import { err, ok } from '../../result'
+import { failure, success } from '../../result'
 import type { HandleEmployeeInput } from '../ports/in'
 import type { Clock, ConversationRepository, IdGenerator, Interpreter, KnowledgeBase, Responder, TicketGateway, UserRepository } from '../ports/out'
 import { toConversationView } from './to-conversation-view'
@@ -119,12 +119,12 @@ export function createHandleEmployeeInput(dependencies: HandleEmployeeInputDepen
   return {
     async execute({ employeeId, conversationId, input }, sink) {
       const conversation = await conversations.findById(conversationId)
-      if (!conversation || conversation.employeeId !== employeeId) return err('conversation_not_found')
-      if (conversation.status === 'closed') return err('conversation_closed')
-      if (conversation.state.employeeMessageCount >= MAX_EMPLOYEE_MESSAGES) return err('message_limit_reached')
+      if (!conversation || conversation.employeeId !== employeeId) return failure('conversation_not_found')
+      if (conversation.status === 'closed') return failure('conversation_closed')
+      if (conversation.state.employeeMessageCount >= MAX_EMPLOYEE_MESSAGES) return failure('message_limit_reached')
       const oneMinuteAgo = new Date(clock.now().getTime() - 60_000)
       if ((await conversations.countEmployeeMessagesSince(employeeId, oneMinuteAgo)) >= RATE_LIMIT_PER_MINUTE) {
-        return err('rate_limited')
+        return failure('rate_limited')
       }
 
       const described = describeInput(input)
@@ -133,7 +133,7 @@ export function createHandleEmployeeInput(dependencies: HandleEmployeeInputDepen
       let injectionSuspected = false
       if (input.type === 'text') {
         const check = checkInput(input.text)
-        if (check.blocked) return err<ChatError>(check.reason === 'empty' ? 'empty_message' : 'message_too_long')
+        if (check.blocked) return failure<ChatError>(check.reason === 'empty' ? 'empty_message' : 'message_too_long')
         employeeText = check.text
         injectionSuspected = check.injectionSuspected
         inputFindings.push(...check.findings)
@@ -158,7 +158,7 @@ export function createHandleEmployeeInput(dependencies: HandleEmployeeInputDepen
 
       if (conversation.status !== 'agent') {
         const saved = await persist(working)
-        return ok({ employeeMessage, agentMessage: null, conversation: await toConversationView(saved, users) })
+        return success({ employeeMessage, agentMessage: null, conversation: await toConversationView(saved, users) })
       }
 
       const turn = createTurn(sink, clock)
@@ -434,7 +434,7 @@ export function createHandleEmployeeInput(dependencies: HandleEmployeeInputDepen
         trace,
       })
       const saved = await persist(working)
-      return ok({ employeeMessage, agentMessage, conversation: await toConversationView(saved, users) })
+      return success({ employeeMessage, agentMessage, conversation: await toConversationView(saved, users) })
     },
   }
 

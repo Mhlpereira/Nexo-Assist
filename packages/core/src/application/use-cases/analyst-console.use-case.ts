@@ -2,7 +2,7 @@ import { HANDOFF_REASON_LABEL, transition, type Conversation, type ConversationE
 import { plainText, toTicketView, type SystemEventIcon } from '../../domain/message'
 import { formatDue } from '../../domain/sla'
 import type { DecisionTrace } from '../../domain/trace'
-import { err, ok, type Result } from '../../result'
+import { failure, success, type Result } from '../../result'
 import type { AnalystConsole } from '../ports/in'
 import type { Clock, ConversationRepository, TicketGateway, UserRepository } from '../ports/out'
 import type { ConsoleError, ConsoleFilter, ConsoleRow, ConversationSummary } from '../dto'
@@ -88,11 +88,11 @@ export function createAnalystConsole({ conversations, users, tickets, clock }: A
     icon: SystemEventIcon,
   ): Promise<Result<void, ConsoleError>> {
     const conversation = await conversations.findById(conversationId)
-    if (!conversation) return err('conversation_not_found')
+    if (!conversation) return failure('conversation_not_found')
     const transitioned = transition(conversation, event, clock.now())
-    if (!transitioned.ok) return err(transitioned.error)
+    if (!transitioned.ok) return failure(transitioned.error)
     const saved = await conversations.save(transitioned.value)
-    if (!saved.ok) return err('invalid_transition')
+    if (!saved.ok) return failure('invalid_transition')
     const analyst = await users.findById(analystId)
     await conversations.appendMessage({
       conversationId,
@@ -101,7 +101,7 @@ export function createAnalystConsole({ conversations, users, tickets, clock }: A
       blocks: [{ kind: 'system', icon, text: systemText(analyst?.name ?? 'Analista', formatDue(clock.now(), clock.now())) }],
       trace: null,
     })
-    return ok(undefined)
+    return success(undefined)
   }
 
   return {
@@ -135,11 +135,11 @@ export function createAnalystConsole({ conversations, users, tickets, clock }: A
     async detail(analystId, conversationId) {
       const rows = await conversations.listForConsole()
       const row = rows.find((candidate) => candidate.conversation.id === conversationId)
-      if (!row) return err('conversation_not_found')
+      if (!row) return failure('conversation_not_found')
       const messages = await conversations.listMessages(conversationId)
       const ticketCall = await tickets.listByEmployee(row.employee.id)
       const now = clock.now()
-      return ok({
+      return success({
         summary: toSummary(row, analystId),
         handoff: row.conversation.state.handoff,
         assignedAnalystId: row.conversation.assignedAnalystId,
@@ -161,11 +161,11 @@ export function createAnalystConsole({ conversations, users, tickets, clock }: A
 
     async sendMessage(analystId, conversationId, text) {
       const trimmed = text.trim()
-      if (!trimmed) return err('empty_message')
+      if (!trimmed) return failure('empty_message')
       const conversation = await conversations.findById(conversationId)
-      if (!conversation) return err('conversation_not_found')
-      if (conversation.status !== 'with_analyst') return err('invalid_transition')
-      if (conversation.assignedAnalystId !== analystId) return err('not_assigned_analyst')
+      if (!conversation) return failure('conversation_not_found')
+      if (conversation.status !== 'with_analyst') return failure('invalid_transition')
+      if (conversation.assignedAnalystId !== analystId) return failure('not_assigned_analyst')
       const analyst = await users.findById(analystId)
       await conversations.appendMessage({
         conversationId,
@@ -175,7 +175,7 @@ export function createAnalystConsole({ conversations, users, tickets, clock }: A
         trace: null,
       })
       await conversations.save({ ...conversation, updatedAt: clock.now() })
-      return ok(undefined)
+      return success(undefined)
     },
   }
 }

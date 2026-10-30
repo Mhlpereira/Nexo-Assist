@@ -1,8 +1,8 @@
 import {
   CATEGORIES,
-  err,
+  failure,
   IMPACTS,
-  ok,
+  success,
   PRIORITIES,
   TICKET_KINDS,
   TICKET_STATUSES,
@@ -85,18 +85,18 @@ export function createHttpTicketGateway(configuration: HttpTicketGatewayConfigur
           },
           body: body === undefined ? undefined : JSON.stringify(body),
         })
-        if (response.ok) return { result: ok(schema.parse(await response.json())), attempts: attempt }
-        if (response.status === 404) return { result: err({ kind: 'not_found' }), attempts: attempt }
+        if (response.ok) return { result: success(schema.parse(await response.json())), attempts: attempt }
+        if (response.status === 404) return { result: failure({ kind: 'not_found' }), attempts: attempt }
         if (!RETRYABLE_STATUSES.has(response.status)) {
           const parsed = errorBodySchema.safeParse(await response.json().catch(() => null))
-          return { result: err({ kind: 'rejected', reason: parsed.success ? parsed.data.error : `http_${response.status}` }), attempts: attempt }
+          return { result: failure({ kind: 'rejected', reason: parsed.success ? parsed.data.error : `http_${response.status}` }), attempts: attempt }
         }
       } catch (error) {
         if (error instanceof z.ZodError) throw error
       }
       if (attempt < maxAttempts) await wait(backoff(attempt))
     }
-    return { result: err({ kind: 'unavailable', attempts: maxAttempts }), attempts: maxAttempts }
+    return { result: failure({ kind: 'unavailable', attempts: maxAttempts }), attempts: maxAttempts }
   }
 
   const encoded = (ticketId: string) => encodeURIComponent(ticketId)

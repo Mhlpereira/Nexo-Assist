@@ -1,6 +1,6 @@
 import { initialState, transition } from '../../domain/conversation'
 import { LIST_TICKETS_ACTION } from '../../domain/message'
-import { err, ok } from '../../result'
+import { failure, success } from '../../result'
 import type { EmployeeConversations } from '../ports/in'
 import type { Clock, ConversationRepository, UserRepository } from '../ports/out'
 import { toConversationView } from './to-conversation-view'
@@ -57,17 +57,17 @@ export function createEmployeeConversations({ conversations, users, clock }: Emp
     async startNew(employeeId) {
       const open = await conversations.findOpenByEmployee(employeeId)
       if (open) {
-        if (open.status !== 'agent') return err('analyst_in_progress')
+        if (open.status !== 'agent') return failure('analyst_in_progress')
         const closed = transition(open, { type: 'close', by: 'employee', analystId: null }, clock.now())
         if (closed.ok) await conversations.save(closed.value)
       }
-      return ok(await start(employeeId))
+      return success(await start(employeeId))
     },
 
     async messagesSince(employeeId, conversationId, after) {
       const conversation = await conversations.findById(conversationId)
-      if (!conversation || conversation.employeeId !== employeeId) return err('conversation_not_found')
-      return ok(await load(conversationId, after))
+      if (!conversation || conversation.employeeId !== employeeId) return failure('conversation_not_found')
+      return success(await load(conversationId, after))
     },
   }
 }

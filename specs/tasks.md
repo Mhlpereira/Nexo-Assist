@@ -56,6 +56,6 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 
 ## Fase 8 — Qualidade e entrega
 - [ ] **T8.1** Evals: ~25 cenários + runner `pnpm eval` + relatório. Ajustar prompts até ≥ 90 % de acerto nas asserções críticas (nenhuma violação de privacidade/confirmação). · design §12
-- [ ] **T8.2** Teste de persistência: reiniciar apps e retomar conversa/estado. · NFR-02, REQ-CHAT-06
-- [ ] **T8.3** README: como rodar, arquitetura (diagrama hexagonal), como o agent decide, como garanti qualidade (evals + testes), escolha do LLM gratuito, trade-offs, o que faria com mais tempo.
-- [ ] **T8.4** Revisão final: `pnpm typecheck && pnpm lint && pnpm test`, busca por `any`, histórico de commits.
+- [x] **T8.2** Teste de persistência: reiniciar apps e retomar conversa/estado. · NFR-02, REQ-CHAT-06
+- [x] **T8.3** README: como rodar, arquitetura (diagrama hexagonal), como o agent decide, como garanti qualidade (evals + testes), escolha do LLM gratuito, trade-offs, o que faria com mais tempo.
+- [x] **T8.4** Revisão final: `pnpm typecheck && pnpm lint && pnpm test`, busca por `any`, histórico de commits.

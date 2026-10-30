@@ -1,4 +1,4 @@
-import { err, ok, type ConsoleRow, type Conversation, type ConversationRepository, type Message, type User } from '@nexo/core'
+import { failure, success, type ConsoleRow, type Conversation, type ConversationRepository, type Message, type User } from '@nexo/core'
 import { toJsonb, type Sql } from './connection'
 
 type ConversationRow = Omit<Conversation, 'state'> & { state: Conversation['state'] }
@@ -72,7 +72,7 @@ export function createPostgresConversationRepository(sql: Sql): ConversationRepo
           resolution = ${conversation.resolution}
         where id = ${conversation.id} and version = ${conversation.version}
         returning *`
-      return row ? ok(toConversation(row)) : err('version_conflict')
+      return row ? success(toConversation(row)) : failure('version_conflict')
     },
 
     async appendMessage(message) {

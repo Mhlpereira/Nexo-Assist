@@ -1,6 +1,6 @@
 import { Agent } from '@mastra/core/agent'
 import { createTool } from '@mastra/core/tools'
-import { CATEGORIES, err, IMPACTS, ok, TICKET_KINDS, type HistoryEntry, type Responder, type ToolName, type TurnTools } from '@nexo/core'
+import { CATEGORIES, failure, IMPACTS, success, TICKET_KINDS, type HistoryEntry, type Responder, type ToolName, type TurnTools } from '@nexo/core'
 import { z } from 'zod'
 import type { DailyBudget } from './daily-budget'
 import { inputGuardrails } from './guardrail-processors'
@@ -80,7 +80,7 @@ export function createMastraResponder(configuration: LlmConfiguration, budget: D
 
   return {
     async respond(request, tools, sink) {
-      if (!budget.tryConsume()) return err({ kind: 'budget_exceeded', detail: 'limite diário de chamadas ao modelo atingido' })
+      if (!budget.tryConsume()) return failure({ kind: 'budget_exceeded', detail: 'limite diário de chamadas ao modelo atingido' })
       const startedAt = Date.now()
       try {
         const stream = await agent.stream(toMessages(request.history, request.text), {
@@ -97,7 +97,7 @@ export function createMastraResponder(configuration: LlmConfiguration, budget: D
         }
         const totalUsage = await stream.totalUsage
         const steps = await stream.steps
-        return ok({
+        return success({
           text: text.trim(),
           usage: {
             model: configuration.model,
@@ -108,7 +108,7 @@ export function createMastraResponder(configuration: LlmConfiguration, budget: D
           },
         })
       } catch (error) {
-        return err({ kind: 'unavailable', detail: describeError(error) })
+        return failure({ kind: 'unavailable', detail: describeError(error) })
       }
     },
   }
