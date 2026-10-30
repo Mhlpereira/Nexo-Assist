@@ -42,12 +42,12 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 - [x] **T5.3** Rotas do console (lista com filtros/busca, detalhe, assumir, devolver, encerrar, mensagem do analista, chamados do funcionário). · REQ-CON-*
 
 ## Fase 6 — UI do funcionário (seguindo `docs/prototype/nexo.pen`)
-- [ ] **T6.1** Design tokens (cores, raios, fontes Schibsted Grotesk / Newsreader / IBM Plex Mono) e componentes base (botão, badge de status/prioridade, avatar). · M
-- [ ] **T6.2** Tela 1 — Login (painel "Showcase" + formulário). · REQ-AUTH-01/02
-- [ ] **T6.3** Tela 2/3 — Chat: sidebar, top bar, mensagens com streaming, linha de status com ações, cards de chamado, seletor, rascunho (Confirmar ⌘↵ / Editar / Cancelar), opções rápidas, contador "N/30", estados de carregamento e erro. · REQ-CHAT-01..09
-- [ ] **T6.4** Painel "Por que?" do Decision Trace. · REQ-TRC-02 — **prioridade alta, é o item mais avaliado**
-- [ ] **T6.5** Modo analista no chat do funcionário (aguardando / falando com Rafael) via polling. · REQ-CHAT-08
-- [ ] **T6.6** Tela "Meu perfil". · REQ-PROF-01
+- [x] **T6.1** Design tokens (cores, raios, fontes Schibsted Grotesk / Newsreader / IBM Plex Mono) e componentes base (botão, badge de status/prioridade, avatar). · M
+- [x] **T6.2** Tela 1 — Login (painel "Showcase" + formulário). · REQ-AUTH-01/02
+- [x] **T6.3** Tela 2/3 — Chat: sidebar, top bar, mensagens com streaming, linha de status com ações, cards de chamado, seletor, rascunho (Confirmar ⌘↵ / Editar / Cancelar), opções rápidas, contador "N/30", estados de carregamento e erro. · REQ-CHAT-01..09
+- [x] **T6.4** Painel "Por que?" do Decision Trace. · REQ-TRC-02 — **prioridade alta, é o item mais avaliado**
+- [x] **T6.5** Modo analista no chat do funcionário (aguardando / falando com Rafael) via polling. · REQ-CHAT-08
+- [x] **T6.6** Tela "Meu perfil". · REQ-PROF-01
 
 ## Fase 7 — Console do analista
 - [ ] **T7.1** Tela 4 — rail, lista com filtros/contadores/busca/etiquetas, conversa com resumo da transferência, barra "Assumir / Devolver", composer bloqueado, painel "Chamados da {nome}". · REQ-CON-01..03

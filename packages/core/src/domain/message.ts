@@ -16,6 +16,7 @@ export type MessageAuthor = 'employee' | 'agent' | 'analyst' | 'system'
 
 export const HANDOFF_ACTION = 'action:handoff'
 export const CONFIRM_DRAFT_ACTION = 'action:confirm_draft'
+export const LIST_TICKETS_ACTION = 'action:list_tickets'
 
 export interface QuickReply {
   label: string

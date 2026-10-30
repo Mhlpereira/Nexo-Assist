@@ -304,3 +304,14 @@ describe('HandleEmployeeInput — transferência e guardrails', () => {
     expect(replies?.kind === 'quick_replies' && replies.options.map((option) => option.label)).toEqual(['Tentar de novo', 'Falar com um analista'])
   })
 })
+
+describe('HandleEmployeeInput — atalhos sem LLM', () => {
+  it('P6 / REQ-STAT-02: "Como está meu chamado?" lista os chamados sem chamar o modelo', async () => {
+    const context = await setup()
+    const { result } = await context.send({ type: 'quick_reply', label: 'Como está meu chamado?', value: 'action:list_tickets' })
+    const blocks = blocksOf(result)
+    expect(blocks.find((block) => block.kind === 'ticket_selector')).toBeTruthy()
+    expect(blocks[0]).toMatchObject({ kind: 'text', text: 'Você tem 2 chamados abertos. Sobre qual deles quer saber?' })
+    expect(context.interpreterRequests).toHaveLength(0)
+  })
+})

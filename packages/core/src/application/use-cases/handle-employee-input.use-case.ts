@@ -11,6 +11,7 @@ import { confidenceLevel, INTENT_LABEL, type Interpretation } from '../../domain
 import {
   CONFIRM_DRAFT_ACTION,
   HANDOFF_ACTION,
+  LIST_TICKETS_ACTION,
   toTicketView,
   type Message,
   type MessageBlock,
@@ -293,6 +294,21 @@ export function createHandleEmployeeInput(dependencies: HandleEmployeeInputDepen
         return { ...base, rationale: `${ticket.id} dentro do prazo` }
       }
 
+      const showMyTickets = async (): Promise<TurnDecision> => {
+        await tools.listMyTickets()
+        const shown = turn.blocks.at(-1)
+        const base = { route: 'list_tickets', rules: [RULES.privacy], interpretation: null }
+        if (shown?.kind === 'ticket_selector') {
+          turn.say(`Você tem ${shown.tickets.length} chamados abertos. Sobre qual deles quer saber?`, 'start')
+          return { ...base, rationale: 'Mais de um chamado aberto: peço para escolher' }
+        }
+        if (shown?.kind === 'ticket_card') return showSelectedTicket(shown.ticket.id)
+        const failed = turn.actions.at(-1)?.status === 'error'
+        turn.say(failed ? 'O sistema de chamados está instável agora. Quer tentar de novo em instantes ou falar com um analista?' : 'Você não tem chamados abertos no momento. Posso ajudar com algo?')
+        if (failed) turn.addBlock({ kind: 'quick_replies', options: [{ label: 'Tentar de novo', value: LIST_TICKETS_ACTION }, { label: 'Falar com um analista', value: HANDOFF_ACTION }] })
+        return { ...base, rationale: failed ? 'Serviço de chamados indisponível' : 'Nenhum chamado aberto' }
+      }
+
       const handleText = async (text: string): Promise<TurnDecision> => {
         const stateSummary = summarizeState(state)
         const interpreted = await interpreter.interpret({ employeeName, history, text, stateSummary })
@@ -382,6 +398,7 @@ export function createHandleEmployeeInput(dependencies: HandleEmployeeInputDepen
               return { route: 'handoff', rationale: 'O funcionário escolheu falar com um analista', rules: [RULES.transfer], interpretation: null }
             }
             if (input.value === CONFIRM_DRAFT_ACTION) return confirmDraft()
+            if (input.value === LIST_TICKETS_ACTION) return showMyTickets()
             return handleText(input.value)
           case 'text':
             return handleText(employeeText)

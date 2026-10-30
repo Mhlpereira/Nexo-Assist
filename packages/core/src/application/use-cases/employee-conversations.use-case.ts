@@ -1,4 +1,5 @@
 import { initialState, transition } from '../../domain/conversation'
+import { LIST_TICKETS_ACTION } from '../../domain/message'
 import { err, ok } from '../../result'
 import type { EmployeeConversations } from '../ports/in'
 import type { Clock, ConversationRepository, UserRepository } from '../ports/out'
@@ -28,7 +29,10 @@ export function createEmployeeConversations({ conversations, users, clock }: Emp
           kind: 'text',
           text: `Olá${employee ? `, ${firstName(employee.name)}` : ''}! Sou o Nexo Assist, do service desk de TI. Me conte o que está acontecendo — posso consultar seus chamados, buscar na central de ajuda, abrir um chamado ou chamar um analista.`,
         },
-        { kind: 'quick_replies', options: toQuickReplies(['Como está meu chamado?', 'Tenho um problema', 'Preciso de um acesso']) },
+        {
+          kind: 'quick_replies',
+          options: [{ label: 'Como está meu chamado?', value: LIST_TICKETS_ACTION }, ...toQuickReplies(['Tenho um problema', 'Preciso de um acesso'])],
+        },
       ],
       trace: null,
     })

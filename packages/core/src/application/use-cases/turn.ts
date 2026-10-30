@@ -20,7 +20,7 @@ export interface Turn {
   readonly seenTicketIds: Set<string>
   track<T>(label: string, tool: string, input: unknown, run: () => Promise<ActionOutcome<T>>): Promise<T>
   addBlock(block: MessageBlock): void
-  say(text: string): void
+  say(text: string, position?: 'start' | 'end'): void
   addRule(rule: RuleRef): void
 }
 
@@ -61,8 +61,9 @@ export function createTurn(sink: TurnEventSink, clock: Clock): Turn {
       sink.emit({ type: 'block', block })
     },
 
-    say(text) {
-      blocks.push({ kind: 'text', text })
+    say(text, position = 'end') {
+      if (position === 'start') blocks.unshift({ kind: 'text', text })
+      else blocks.push({ kind: 'text', text })
       sink.emit({ type: 'text_delta', text })
     },
 

@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   transpilePackages: ['@nexo/core', '@nexo/infra'],
   serverExternalPackages: ['postgres', '@mastra/core'],
   agentRules: false,
+  devIndicators: false,
 }
 
 export default nextConfig
