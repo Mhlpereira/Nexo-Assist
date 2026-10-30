@@ -23,12 +23,12 @@ function describeTag(row: ConsoleRow, analystId: string): Pick<ConversationSumma
     case 'waiting_analyst':
       if (handoff?.reason === 'low_confidence') {
         const confidence = handoff.confidence === null ? '' : ` · confiança ${Math.round(handoff.confidence * 100)}%`
-        return { tag: `Agent pediu ajuda${confidence}`, tagTone: 'danger' }
+        return { tag: `Agent pediu ajuda${confidence}`, tagTone: 'warning' }
       }
       if (handoff?.reason === 'critical') return { tag: `Crítico${handoff.ticketId ? ` · ${handoff.ticketId}` : ''}`, tagTone: 'danger' }
       return {
         tag: `Transferida · ${handoff?.ticketId ?? (handoff ? HANDOFF_REASON_LABEL[handoff.reason] : 'aguardando')}`,
-        tagTone: 'warning',
+        tagTone: 'danger',
       }
     case 'with_analyst':
       return conversation.assignedAnalystId === analystId

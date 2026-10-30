@@ -50,9 +50,9 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 - [x] **T6.6** Tela "Meu perfil". · REQ-PROF-01
 
 ## Fase 7 — Console do analista
-- [ ] **T7.1** Tela 4 — rail, lista com filtros/contadores/busca/etiquetas, conversa com resumo da transferência, barra "Assumir / Devolver", composer bloqueado, painel "Chamados da {nome}". · REQ-CON-01..03
-- [ ] **T7.2** Tela 5 — atendimento assumido: composer ativo, Devolver / Encerrar, eventos de sistema. · REQ-CON-04..06
-- [ ] **T7.3** Traces no console (mesmo painel + métricas de LLM). · REQ-TRC-03
+- [x] **T7.1** Tela 4 — rail, lista com filtros/contadores/busca/etiquetas, conversa com resumo da transferência, barra "Assumir / Devolver", composer bloqueado, painel "Chamados da {nome}". · REQ-CON-01..03
+- [x] **T7.2** Tela 5 — atendimento assumido: composer ativo, Devolver / Encerrar, eventos de sistema. · REQ-CON-04..06
+- [x] **T7.3** Traces no console (mesmo painel + métricas de LLM). · REQ-TRC-03
 
 ## Fase 8 — Qualidade e entrega
 - [ ] **T8.1** Evals: ~25 cenários + runner `pnpm eval` + relatório. Ajustar prompts até ≥ 90 % de acerto nas asserções críticas (nenhuma violação de privacidade/confirmação). · design §12
