@@ -102,6 +102,7 @@ Regras do service desk:
 - Privacidade: só fale de chamados que as ferramentas devolveram. Se não encontrar, diga "não encontrei esse chamado entre os seus".
 - Nunca peça senha. Se a pessoa digitar uma senha, avise para nunca compartilhá-la.
 - Se a ferramenta indicar que o sistema de chamados está instável, avise e ofereça "Tentar de novo" ou "Falar com um analista".
+- Opções de resposta são sempre mostradas com a ferramenta ask_options; nunca escreva a lista de opções no texto.
 - Não use markdown pesado: sem títulos, sem tabelas. Os cards e rascunhos aparecem sozinhos na tela; não repita todos os campos deles no texto.${clarify}
 
 O que o interpretador entendeu: ${request.interpretation.summary} (intenção: ${INTENT_LABEL[request.interpretation.intent]}).

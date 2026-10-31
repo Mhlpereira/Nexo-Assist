@@ -315,3 +315,17 @@ describe('HandleEmployeeInput — atalhos sem LLM', () => {
     expect(context.interpreterRequests).toHaveLength(0)
   })
 })
+
+describe('HandleEmployeeInput — opções escritas no texto pelo modelo', () => {
+  it('REQ-OPEN-02: transforma "[opções: a | b]" em botões de resposta rápida', async () => {
+    const context = await setup({
+      interpretations: [interpretationOf({ intent: 'open_ticket' })],
+      responses: [async () => 'O problema impede você de trabalhar hoje?\n[opções: Sim, impede | Não, consigo trabalhar]'],
+    })
+    const { result } = await context.text('VPN com erro 809 no Windows 11')
+    const blocks = blocksOf(result)
+    expect(blocks[0]).toEqual({ kind: 'text', text: 'O problema impede você de trabalhar hoje?' })
+    const replies = blocks.find((block) => block.kind === 'quick_replies')
+    expect(replies?.kind === 'quick_replies' && replies.options.map((option) => option.label)).toEqual(['Sim, impede', 'Não, consigo trabalhar'])
+  })
+})

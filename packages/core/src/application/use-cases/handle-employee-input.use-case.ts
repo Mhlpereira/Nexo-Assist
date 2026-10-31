@@ -97,7 +97,7 @@ function describeBlock(block: MessageBlock): string {
     case 'draft':
       return `[rascunho ${block.draft.id} (${block.draft.mode}): ${block.draft.title} — ${PRIORITY_LABEL[block.draft.priority]}]`
     case 'quick_replies':
-      return `[opções: ${block.options.map((option) => option.label).join(' | ')}]`
+      return `(o assistente exibiu botões com as respostas: ${block.options.map((option) => option.label).join(', ')})`
     case 'system':
       return ''
   }
@@ -346,8 +346,12 @@ export function createHandleEmployeeInput(dependencies: HandleEmployeeInputDepen
             )
             if (!responded.ok) return llmFallback(text, responded.error.detail)
             usage = addUsage(interpreted.value.usage, responded.value.usage)
-            const filtered = await filterOutput(responded.value.text)
+            const { text: withoutInlineOptions, options } = extractInlineOptions(responded.value.text)
+            const filtered = await filterOutput(withoutInlineOptions)
             turn.blocks.unshift({ kind: 'text', text: filtered })
+            if (options.length > 0 && !turn.blocks.some((block) => block.kind === 'quick_replies')) {
+              turn.addBlock({ kind: 'quick_replies', options: toQuickReplies(options) })
+            }
             return result
           }
         }
@@ -443,6 +447,19 @@ export function createHandleEmployeeInput(dependencies: HandleEmployeeInputDepen
     if (saved.ok) return saved.value
     return (await conversations.findById(conversation.id)) ?? conversation
   }
+}
+
+const INLINE_OPTIONS_PATTERN = /\[\s*op[çc][õo]es\s*:\s*([^\]]+)\]/i
+
+export function extractInlineOptions(text: string): { text: string; options: string[] } {
+  const match = text.match(INLINE_OPTIONS_PATTERN)
+  if (!match?.[1]) return { text, options: [] }
+  const options = match[1]
+    .split(/\s*[|·;]\s*/)
+    .map((option) => option.trim())
+    .filter(Boolean)
+    .slice(0, 4)
+  return { text: text.replace(INLINE_OPTIONS_PATTERN, '').trim(), options }
 }
 
 function mergeRules(first: RuleRef[], second: RuleRef[]): RuleRef[] {
