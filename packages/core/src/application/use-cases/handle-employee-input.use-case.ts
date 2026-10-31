@@ -315,7 +315,7 @@ export function createHandleEmployeeInput(dependencies: HandleEmployeeInputDepen
         if (!interpreted.ok) return llmFallback(text, interpreted.error.detail)
         usage = interpreted.value.usage
         const interpretation = interpreted.value.interpretation
-        const decision = decide({ interpretation, state, injectionSuspected })
+        const decision = decide({ interpretation, state, injectionSuspected, text })
         state.lowConfidenceStreak = decision.lowConfidenceStreak
         const result = { route: decision.route.kind, rationale: decision.rationale, rules: decision.rules, interpretation }
 

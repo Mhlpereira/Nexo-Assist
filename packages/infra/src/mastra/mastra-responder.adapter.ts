@@ -5,7 +5,7 @@ import { z } from 'zod'
 import type { DailyBudget } from './daily-budget'
 import { inputGuardrails } from './guardrail-processors'
 import { describeError } from './mastra-interpreter.adapter'
-import { resolveModel, type LlmConfiguration } from './model'
+import { providerOptions, resolveModel, type LlmConfiguration } from './model'
 import { responderInstructions } from './prompts'
 
 const MAX_STEPS = 5
@@ -89,6 +89,7 @@ export function createMastraResponder(configuration: LlmConfiguration, budget: D
           activeTools: request.allowedTools,
           maxSteps: MAX_STEPS,
           modelSettings: { temperature: 0.2 },
+          providerOptions: providerOptions(configuration),
         })
         let text = ''
         for await (const delta of stream.textStream) {

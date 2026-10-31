@@ -14,7 +14,7 @@ describe('orçamento diário do LLM', () => {
 
 describe('resolveModel', () => {
   it('NFR-04: usa o roteador do Mastra para provedor/modelo e o endpoint compatível para Ollama', () => {
-    expect(resolveModel({ model: 'google/gemini-flash-latest', ollamaBaseUrl: '' })).toEqual({ id: 'google/gemini-flash-latest' })
+    expect(resolveModel({ model: 'google/gemini-3.5-flash', ollamaBaseUrl: '' })).toEqual({ id: 'google/gemini-3.5-flash' })
     expect(resolveModel({ model: 'ollama/qwen3:8b', ollamaBaseUrl: 'http://localhost:11434' })).toMatchObject({
       providerId: 'ollama',
       modelId: 'qwen3:8b',

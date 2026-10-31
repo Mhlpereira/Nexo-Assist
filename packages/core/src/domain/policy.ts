@@ -46,7 +46,7 @@ const READ_ONLY_TOOLS: ToolName[] = ['search_help_center', 'list_my_tickets', 'g
 
 const TOOLS_BY_INTENT: Record<Intent, ToolName[]> = {
   question: ['search_help_center', 'ask_options', 'list_my_tickets', 'prepare_ticket_draft'],
-  open_ticket: ['search_help_center', 'list_my_tickets', 'ask_options', 'prepare_ticket_draft', 'prepare_update_draft'],
+  open_ticket: ['search_help_center', 'list_my_tickets', 'get_ticket', 'ask_options', 'prepare_ticket_draft', 'prepare_update_draft'],
   ticket_status: ['list_my_tickets', 'get_ticket', 'ask_options'],
   update_ticket: ['list_my_tickets', 'get_ticket', 'ask_options', 'prepare_update_draft'],
   edit_draft: ['ask_options', 'prepare_ticket_draft', 'prepare_update_draft'],
@@ -63,9 +63,24 @@ export interface PolicyInput {
   interpretation: Interpretation
   state: ConversationState
   injectionSuspected: boolean
+  text: string
 }
 
-export function decide({ interpretation, state, injectionSuspected }: PolicyInput): PolicyDecision {
+const CONFIRMATION_PATTERN =
+  /^(sim|s|ok|okay|isso|isso mesmo|exato|correto|certo|está certo|tá certo|ta certo|pode|pode sim|pode criar|pode abrir|pode registrar|pode mandar|pode enviar|pode seguir|confirmo|confirma|confirmado|confirmar|perfeito|beleza|fechado|manda ver|vai)( mesmo| sim| por favor| obrigad[oa])?[.!]*$/
+
+export const looksLikeConfirmation = (text: string): boolean =>
+  CONFIRMATION_PATTERN.test(
+    text
+      .trim()
+      .toLowerCase()
+      .replace(/[,;]/g, '')
+      .replace(/\s+/g, ' ')
+      .replace(/^(sim|ok|isso|certo|está certo|perfeito)[ .!]+/, '')
+      .trim() || 'sim',
+  )
+
+export function decide({ interpretation, state, injectionSuspected, text }: PolicyInput): PolicyDecision {
   const { intent, confidence } = interpretation
   const decision = (route: Route, rationale: string, rules: RuleRef[] = [], lowConfidenceStreak = 0): PolicyDecision => ({
     route,
@@ -78,7 +93,7 @@ export function decide({ interpretation, state, injectionSuspected }: PolicyInpu
     return decision({ kind: 'handoff', reason: 'requested' }, 'O funcionário pediu para falar com um analista', [RULES.transfer])
   }
 
-  if (confidence < LOW_CONFIDENCE) {
+  if (confidence < LOW_CONFIDENCE || intent === 'unclear') {
     const streak = state.lowConfidenceStreak + 1
     if (streak >= 2) {
       return decision(
@@ -99,6 +114,13 @@ export function decide({ interpretation, state, injectionSuspected }: PolicyInpu
     if (intent === 'cancel') return decision({ kind: 'cancel_draft' }, 'O funcionário desistiu do rascunho')
     if (injectionSuspected || confidence < HIGH_CONFIDENCE) {
       return decision({ kind: 'clarify' }, 'Confirmação ambígua: peço que confirme pelo botão', [RULES.confirmation])
+    }
+    if (!looksLikeConfirmation(text)) {
+      return decision(
+        { kind: 'respond', tools: TOOLS_BY_INTENT.edit_draft },
+        'A mensagem traz informação nova, não é uma confirmação explícita: atualizo o rascunho em vez de criar',
+        [RULES.confirmation],
+      )
     }
     return decision({ kind: 'confirm_draft' }, `Confirmação explícita do rascunho ${state.pendingDraft.id}`, [RULES.confirmation])
   }

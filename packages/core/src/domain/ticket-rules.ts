@@ -33,7 +33,7 @@ export interface DuplicateMatch {
 }
 
 const SAME_CATEGORY_THRESHOLD = 0.2
-const ANY_CATEGORY_THRESHOLD = 0.45
+const ANY_CATEGORY_THRESHOLD = 0.3
 
 export function findLikelyDuplicate(
   issue: { category: Category; text: string },

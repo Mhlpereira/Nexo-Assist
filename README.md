@@ -29,7 +29,7 @@ Contas de demonstração (qualquer senha):
 Outros comandos:
 
 ```bash
-pnpm test                     # 96 testes (domínio, casos de uso, adapters, serviço) — exige o Postgres no ar
+pnpm test                     # 100 testes (domínio, casos de uso, adapters, serviço) — exige o Postgres no ar
 pnpm typecheck && pnpm lint
 pnpm eval                     # 17 cenários de decisão contra o LLM real (pnpm eval "vencido" filtra)
 ```
@@ -111,9 +111,11 @@ As regras do Anexo A são funções puras e testadas, nunca só prompt:
 
 ## Escolha do modelo
 
-**Google Gemini Flash no tier gratuito** (`LLM_MODEL=google/gemini-flash-latest`), via o roteador de modelos do Mastra.
+**Google Gemini 3.1 Flash-Lite no tier gratuito** (`LLM_MODEL=google/gemini-3.1-flash-lite`), via o roteador de modelos do Mastra, com `thinkingLevel: minimal`.
 
 - Custo zero — requisito pessoal para um projeto de processo seletivo — com bom suporte a tool calling, saída estruturada e português.
+- Por que o Flash-Lite e não o Flash: no tier gratuito o `gemini-3.5-flash` tem limite de 20 requisições **por dia**, enquanto o Flash-Lite tem 15 **por minuto** — o único viável para demonstrar e rodar os evals. Com as regras no código e o modelo só interpretando e redigindo, o modelo menor passou em 100% das asserções (ver abaixo).
+- O raciocínio do modelo fica em `minimal`: a interpretação caiu de ~12 s para ~2 s sem perda nos evals.
 - Configurável por variável de ambiente; nada no core muda. Para rodar 100% local: `LLM_MODEL=ollama/qwen3:8b` (usa o endpoint compatível com OpenAI do Ollama).
 - Custo por conversa: botões e confirmações não chamam o modelo; um turno de texto típico faz 2 chamadas (interpretação curta + resposta com tools), com contexto limitado às 8 últimas mensagens e ao estado estruturado. Tokens e latência de cada turno ficam no trace e aparecem no console.
 
@@ -121,9 +123,21 @@ As regras do Anexo A são funções puras e testadas, nunca só prompt:
 
 ## Como garanti a qualidade das decisões
 
-1. **Testes de domínio e casos de uso** (Vitest, 96 testes): SLA com fins de semana e fora do expediente, tabela de prioridade, duplicidade, reabertura, máquina de estados, policy, guardrails, e o turno completo com Interpreter/Responder roteirizados — cada teste cita o requisito (`REQ-OPEN-05: não cria chamado sem confirmação`).
+1. **Testes de domínio e casos de uso** (Vitest, 100 testes): SLA com fins de semana e fora do expediente, tabela de prioridade, duplicidade, reabertura, máquina de estados, policy, guardrails, e o turno completo com Interpreter/Responder roteirizados — cada teste cita o requisito (`REQ-OPEN-05: não cria chamado sem confirmação`).
 2. **Testes de integração** contra Postgres real: repositórios, busca na central de ajuda, serviço de chamados (posse, idempotência, janela de reabertura, indisponibilidade) e cliente HTTP (retry com backoff, Idempotency-Key repetida em cada tentativa).
 3. **Evals com o LLM real** (`pnpm eval`): 17 cenários com asserções sobre intenção, rota, tools chamadas, blocos exibidos, estado e chamadas ao serviço. As asserções **críticas** — privacidade, nunca criar sem confirmação, guardrails — falham o processo. O relatório mostra taxa de acerto e tokens por cenário.
+
+   O ciclo de melhoria foi guiado por eles (gemini-3.1-flash-lite, uma execução por rodada):
+
+   | Rodada | Asserções | Falhas críticas | O que mudou depois |
+   |---|---|---|---|
+   | 1 | 38/50 (76%) | 2 | O modelo tratou "Só eu, tenho reunião às 14h" como confirmação e **criou o chamado**; "não entendi" com 95% de confiança não transferia. Corrigido **no código**: confirmação por texto exige frase de aprovação explícita (senão vira edição do rascunho) e intenção `unclear` conta como baixa confiança. |
+   | 2 | 46/50 (92%) | 1 | Duplicata não detectada quando o modelo escolheu outra categoria; o modelo anunciava ações sem chamar a tool. Limiar entre categorias ajustado e o Responder passou a receber os dados já extraídos e a próxima ação esperada por intenção. |
+   | 3 | **50/50 (100%)** | **0** | ~3,8 mil tokens por cenário. |
+
+   Por serem não determinísticos, os evals medem tendência, não garantia; as regras que não podem falhar (confirmação, privacidade, prioridade, prazos) são código e têm testes unitários próprios.
+
+   Para rodar: `pnpm eval` (o `EVAL_DELAY_MS`, padrão 4000, espaça as chamadas para caber no limite por minuto; com o Flash-Lite use 8000).
 4. **Trace persistido** de cada turno: qualquer decisão errada pode ser inspecionada depois no chat ou no console.
 
 ---

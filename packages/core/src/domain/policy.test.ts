@@ -34,8 +34,8 @@ const draft: Draft = {
   status: 'pending',
 }
 
-const run = (overrides: Partial<Interpretation>, state = initialState(), injectionSuspected = false) =>
-  decide({ interpretation: interpretation(overrides), state, injectionSuspected })
+const run = (overrides: Partial<Interpretation>, state = initialState(), injectionSuspected = false, text = 'pode criar') =>
+  decide({ interpretation: interpretation(overrides), state, injectionSuspected, text })
 
 describe('policy', () => {
   it('REQ-HAND-01: pedido de analista transfere sem tentar dissuadir', () => {
@@ -73,6 +73,23 @@ describe('policy', () => {
     expect(run({ intent: 'confirm' }, { ...initialState(), pendingDraft: draft }, true).route.kind).toBe('clarify')
     const route = run({ intent: 'open_ticket' }, initialState(), true).route
     expect(route.kind === 'respond' && route.tools).not.toContain('prepare_ticket_draft')
+  })
+
+  it('REQ-OPEN-05 / P3: informação nova com rascunho pendente não é confirmação, mesmo que o modelo diga que é', () => {
+    const result = run({ intent: 'confirm' }, { ...initialState(), pendingDraft: draft }, false, 'Só eu. Tenho reunião com um cliente às 14h.')
+    expect(result.route.kind).toBe('respond')
+    expect(result.route.kind === 'respond' && result.route.tools).toContain('prepare_ticket_draft')
+  })
+
+  it('REQ-OPEN-05: frases curtas de confirmação são aceitas', () => {
+    for (const text of ['Pode criar', 'sim, pode criar!', 'Está certo, pode criar.', 'confirmo', 'ok']) {
+      expect(run({ intent: 'confirm' }, { ...initialState(), pendingDraft: draft }, false, text).route.kind, text).toBe('confirm_draft')
+    }
+  })
+
+  it('REQ-HAND-04: "não ficou claro" conta como baixa confiança mesmo com score alto', () => {
+    expect(run({ intent: 'unclear', confidence: 0.95 }).route.kind).toBe('clarify')
+    expect(run({ intent: 'unclear', confidence: 0.95 }, { ...initialState(), lowConfidenceStreak: 1 }).route).toEqual({ kind: 'handoff', reason: 'low_confidence' })
   })
 
   it('REQ-STAT-02: consulta de status libera apenas tools de leitura', () => {

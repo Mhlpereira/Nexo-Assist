@@ -18,3 +18,6 @@ export function resolveModel(configuration: Pick<LlmConfiguration, 'model' | 'ol
   if (!isProviderModelId(model)) throw new Error(`LLM_MODEL deve estar no formato provedor/modelo, recebido "${model}"`)
   return { id: model }
 }
+
+export const providerOptions = (configuration: Pick<LlmConfiguration, 'model'>) =>
+  configuration.model.startsWith('google/') ? { google: { thinkingConfig: { thinkingLevel: 'minimal' as const } } } : undefined

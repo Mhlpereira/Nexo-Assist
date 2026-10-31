@@ -2,10 +2,15 @@ import { Agent } from '@mastra/core/agent'
 import { failure, interpretationSchema, success, type Interpreter, type LlmUsage } from '@nexo/core'
 import type { DailyBudget } from './daily-budget'
 import { inputGuardrails } from './guardrail-processors'
-import { resolveModel, type LlmConfiguration } from './model'
+import { providerOptions, resolveModel, type LlmConfiguration } from './model'
 import { INTERPRETER_INSTRUCTIONS, interpreterPrompt } from './prompts'
 
 const MAX_ATTEMPTS = 2
+
+const withoutEmptyStrings = (value: unknown): unknown =>
+  typeof value === 'object' && value !== null
+    ? Object.fromEntries(Object.entries(value).map(([key, field]) => [key, field === '' ? null : field]))
+    : value
 
 export const describeError = (error: unknown) => (error instanceof Error ? error.message : String(error)).slice(0, 200)
 
@@ -29,12 +34,13 @@ export function createMastraInterpreter(configuration: LlmConfiguration, budget:
           const response = await agent.generate(interpreterPrompt(request), {
             structuredOutput: { schema: interpretationSchema },
             modelSettings: { temperature: 0 },
+            providerOptions: providerOptions(configuration),
           })
           usage.calls++
           usage.inputTokens += response.totalUsage?.inputTokens ?? 0
           usage.outputTokens += response.totalUsage?.outputTokens ?? 0
           usage.latencyMilliseconds += Date.now() - startedAt
-          const parsed = interpretationSchema.safeParse(response.object)
+          const parsed = interpretationSchema.safeParse(withoutEmptyStrings(response.object))
           if (parsed.success) return success({ interpretation: parsed.data, usage })
           lastProblem = `saída inválida: ${parsed.error.issues[0]?.message ?? 'formato'}`
         } catch (error) {

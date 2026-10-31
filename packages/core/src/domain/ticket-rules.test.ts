@@ -29,6 +29,14 @@ describe('findLikelyDuplicate', () => {
     expect(match?.ticket.id).toBe('INC-1')
   })
 
+  it('REQ-OPEN-06: encontra duplicata mesmo quando o modelo escolhe outra categoria', () => {
+    const match = findLikelyDuplicate(
+      { category: 'software', text: 'Lentidão no notebook. O notebook continua lento após a atualização do Windows, mas há alternativa' },
+      [ticket({})],
+    )
+    expect(match?.ticket.id).toBe('INC-1')
+  })
+
   it('REQ-OPEN-06: ignora problemas diferentes', () => {
     const match = findLikelyDuplicate({ category: 'network_vpn', text: 'VPN não conecta, erro 809' }, [ticket({})])
     expect(match).toBeNull()

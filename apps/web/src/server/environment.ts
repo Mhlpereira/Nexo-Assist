@@ -6,7 +6,7 @@ export const environment = z
     SESSION_SECRET: z.string().min(32, 'SESSION_SECRET precisa de pelo menos 32 caracteres'),
     TICKETS_SERVICE_URL: z.string().url(),
     TICKETS_SERVICE_TOKEN: z.string().min(8),
-    LLM_MODEL: z.string().default('google/gemini-flash-latest'),
+    LLM_MODEL: z.string().default('google/gemini-3.1-flash-lite'),
     OLLAMA_BASE_URL: z.string().url().default('http://localhost:11434'),
     LLM_DAILY_BUDGET: z.coerce.number().int().positive().default(500),
   })

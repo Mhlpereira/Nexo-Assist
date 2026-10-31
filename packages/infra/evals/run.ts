@@ -1,7 +1,9 @@
 import { existsSync } from 'node:fs'
 import { createHandleEmployeeInput, initialState, type EmployeeInput, type Message, type Ticket } from '@nexo/core'
-import { fixedClock, inMemoryConversations, inMemoryTickets, inMemoryUsers, sequentialIds, staticKnowledgeBase } from '@nexo/core/testing'
-import { SEED_ARTICLES, SEED_USERS } from '../src/database/seed'
+import { fixedClock, inMemoryConversations, inMemoryTickets, inMemoryUsers, sequentialIds } from '@nexo/core/testing'
+import { connectDatabase } from '../src/database/connection'
+import { createPostgresKnowledgeBase } from '../src/database/postgres-knowledge-base.adapter'
+import { SEED_USERS } from '../src/database/seed'
 import { createDailyBudget } from '../src/mastra/daily-budget'
 import { createMastraInterpreter } from '../src/mastra/mastra-interpreter.adapter'
 import { createMastraResponder } from '../src/mastra/mastra-responder.adapter'
@@ -12,12 +14,14 @@ if (existsSync(rootEnvironment)) process.loadEnvFile(rootEnvironment)
 
 const DAY = 24 * 60 * 60 * 1000
 const configuration = {
-  model: process.env.LLM_MODEL ?? 'google/gemini-flash-latest',
+  model: process.env.LLM_MODEL ?? 'google/gemini-3.1-flash-lite',
   ollamaBaseUrl: process.env.OLLAMA_BASE_URL ?? 'http://localhost:11434',
   dailyBudget: Number(process.env.LLM_DAILY_BUDGET ?? 500),
 }
 const pauseBetweenTurns = Number(process.env.EVAL_DELAY_MS ?? 4000)
 const only = process.argv[2]
+const sql = connectDatabase(process.env.DATABASE_URL ?? 'postgres://nexo:nexo@localhost:5440/nexo')
+const knowledgeBase = createPostgresKnowledgeBase(sql)
 
 function seedTickets(now: Date): Ticket[] {
   const ago = (milliseconds: number) => new Date(now.getTime() - milliseconds)
@@ -44,7 +48,7 @@ async function runScenario(scenario: Scenario): Promise<ScenarioOutcome> {
     conversations: conversationStore.repository,
     users: inMemoryUsers(SEED_USERS),
     tickets: ticketStore.gateway,
-    knowledgeBase: staticKnowledgeBase(SEED_ARTICLES),
+    knowledgeBase,
     interpreter: {
       interpret: (request) => {
         interpreterRequests.push(request)
@@ -112,4 +116,5 @@ for (const scenario of scenarios) {
 const rate = totalChecks === 0 ? 0 : Math.round((passedChecks / totalChecks) * 100)
 console.log(`\nAsserções: ${passedChecks}/${totalChecks} (${rate}%) · falhas críticas: ${criticalFailures}`)
 console.log(`Tokens: ${inputTokens} entrada + ${outputTokens} saída (média ${Math.round((inputTokens + outputTokens) / Math.max(scenarios.length, 1))} por cenário)`)
+await sql.end()
 process.exitCode = criticalFailures > 0 ? 1 : 0
