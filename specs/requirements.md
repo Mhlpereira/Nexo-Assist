@@ -103,6 +103,7 @@ Legenda de verificação: **U** teste unitário · **I** teste de integração �
 | REQ-SVC-03 | O serviço deve simular instabilidade configurável (taxa de erro 503 e latência) para exercitar a resiliência. | I |
 | REQ-SVC-04 | Escritas devem aceitar `Idempotency-Key`; repetir a mesma chave não duplica o efeito. | I |
 | REQ-SVC-05 | Seed com: 5+ funcionários, 2 analistas, 5–10 artigos, chamados em situações variadas (aberto, vencido, resolvido há ≤7 dias, resolvido há >7 dias, de outros funcionários). Datas relativas ao momento do seed. | M |
+| REQ-SVC-06 | Seed com conversas de demonstração para o console, uma por estado: transferida a pedido, agent pediu ajuda (baixa confiança), agent atendendo, resolvida pelo agent. Mensagens do agent com Decision Trace. A Ana não recebe conversa semeada, para o fluxo do funcionário começar do zero. | M |
 
 ## 6. Guardrails
 

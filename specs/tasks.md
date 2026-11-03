@@ -59,3 +59,6 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 - [x] **T8.2** Teste de persistência: reiniciar apps e retomar conversa/estado. · NFR-02, REQ-CHAT-06
 - [x] **T8.3** README: como rodar, arquitetura (diagrama hexagonal), como o agent decide, como garanti qualidade (evals + testes), escolha do LLM gratuito, trade-offs, o que faria com mais tempo.
 - [x] **T8.4** Revisão final: `pnpm typecheck && pnpm lint && pnpm test`, busca por `any`, histórico de commits.
+
+## Fase 9 — Polimento para avaliação
+- [ ] **T9.1** Conversas de demonstração no seed (Carla transferida, Bruno com baixa confiança, Diego com o agent, Fábio resolvida pelo agent), com traces. · REQ-SVC-06 · M (console)
