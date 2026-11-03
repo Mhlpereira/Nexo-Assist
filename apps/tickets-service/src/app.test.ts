@@ -3,7 +3,7 @@ import { createApp, type ChaosConfiguration } from './app'
 import { connect, migrate } from './database'
 import { seed } from './seed'
 
-const databaseUrl = process.env.DATABASE_URL ?? 'postgres://nexo:nexo@localhost:5440/nexo'
+const databaseUrl = process.env.DATABASE_URL ?? 'postgres://nexo:nexo@localhost:55432/nexo'
 const schema = `tickets_test_${process.pid}`
 const sql = connect(databaseUrl, schema)
 const serviceToken = 'test-token'

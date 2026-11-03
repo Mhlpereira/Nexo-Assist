@@ -20,7 +20,7 @@ const configuration = {
 }
 const pauseBetweenTurns = Number(process.env.EVAL_DELAY_MS ?? 4000)
 const only = process.argv[2]
-const sql = connectDatabase(process.env.DATABASE_URL ?? 'postgres://nexo:nexo@localhost:5440/nexo')
+const sql = connectDatabase(process.env.DATABASE_URL ?? 'postgres://nexo:nexo@localhost:55432/nexo')
 const knowledgeBase = createPostgresKnowledgeBase(sql)
 
 function seedTickets(now: Date): Ticket[] {

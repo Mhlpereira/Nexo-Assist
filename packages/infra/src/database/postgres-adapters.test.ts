@@ -7,7 +7,7 @@ import { createPostgresKnowledgeBase } from './postgres-knowledge-base.adapter'
 import { createPostgresUserRepository } from './postgres-user-repository.adapter'
 import { seedDatabase } from './seed'
 
-const databaseUrl = process.env.DATABASE_URL ?? 'postgres://nexo:nexo@localhost:5440/nexo'
+const databaseUrl = process.env.DATABASE_URL ?? 'postgres://nexo:nexo@localhost:55432/nexo'
 const schema = `app_test_${process.pid}`
 const sql = connectDatabase(databaseUrl, schema)
 const conversations = createPostgresConversationRepository(sql)

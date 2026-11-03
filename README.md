@@ -12,7 +12,7 @@ Pré-requisitos: Node 22+, pnpm 9, Docker.
 
 ```bash
 cp .env.example .env          # preencha GOOGLE_GENERATIVE_AI_API_KEY (gratuita) e um SESSION_SECRET
-docker compose up -d          # Postgres na porta 5440 (mude com POSTGRES_PORT)
+docker compose up -d          # Postgres na porta 55432 (mude com POSTGRES_PORT)
 pnpm install
 pnpm db:setup                 # schemas, funcionários, central de ajuda e chamados de exemplo
 pnpm dev                      # web em http://localhost:3000 + serviço de chamados em :4001
