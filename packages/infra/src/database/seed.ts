@@ -1,5 +1,6 @@
 import type { Article, User } from '@nexo/core'
 import type { Sql } from './connection'
+import { seedDemoConversations } from './seed-conversations'
 
 export const SEED_USERS: User[] = [
   { id: 'emp-ana', email: 'ana.souza@nexo.com.br', name: 'Ana Souza', role: 'employee', department: 'Financeiro', team: 'Controladoria' },
@@ -74,4 +75,5 @@ export async function seedDatabase(sql: Sql): Promise<void> {
     await sql`insert into knowledge_articles (slug, title, body, applies_to)
               values (${article.slug}, ${article.title}, ${article.body}, ${article.appliesTo})`
   }
+  await seedDemoConversations(sql)
 }

@@ -23,7 +23,7 @@ export function ConsoleTickets({ employeeName, tickets, handoff, focusTicketId, 
   return (
     <aside className="hidden w-[340px] shrink-0 flex-col border-l border-rule bg-paper xl:flex">
       <header className="flex h-16 shrink-0 flex-col justify-center gap-0.5 border-b border-rule px-5">
-        <h2 className="text-[15.5px] font-semibold text-ink">Chamados da {firstName}</h2>
+        <h2 className="text-[15.5px] font-semibold text-ink">Chamados de {firstName}</h2>
         <span className="text-[12.5px] text-ink-3">
           {tickets ? `${openCount} abertos · ${tickets.length - openCount} encerrados` : 'Sistema de chamados indisponível'}
         </span>

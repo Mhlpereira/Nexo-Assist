@@ -24,7 +24,7 @@ Contas de demonstração (qualquer senha):
 |---|---|---|
 | Ana Souza | `ana.souza@nexo.com.br` | chamado vencido (INC-20311), resolvido há 4 dias (reabrível), resolvido há 57 dias |
 | Bruno Tavares | `bruno.tavares@nexo.com.br` | funcionário com impressora da equipe com problema |
-| Rafael Lima | `rafael.lima@nexo.com.br` | **console do analista** (N2) |
+| Rafael Lima | `rafael.lima@nexo.com.br` | **console do analista** (N2), já com conversas de demonstração: transferida a pedido (Carla), agent pediu ajuda com 41% de confiança (Bruno), com o agent (Diego) e resolvida pelo agent (Fábio) |
 
 Outros comandos:
 

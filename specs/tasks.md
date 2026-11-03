@@ -61,4 +61,4 @@ Ordem pensada para ter, o quanto antes, um fluxo de ponta a ponta funcionando e 
 - [x] **T8.4** Revisão final: `pnpm typecheck && pnpm lint && pnpm test`, busca por `any`, histórico de commits.
 
 ## Fase 9 — Polimento para avaliação
-- [ ] **T9.1** Conversas de demonstração no seed (Carla transferida, Bruno com baixa confiança, Diego com o agent, Fábio resolvida pelo agent), com traces. · REQ-SVC-06 · M (console)
+- [x] **T9.1** Conversas de demonstração no seed (Carla transferida, Bruno com baixa confiança, Diego com o agent, Fábio resolvida pelo agent), com traces. · REQ-SVC-06 · M (console)
