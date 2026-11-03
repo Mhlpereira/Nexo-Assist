@@ -29,12 +29,14 @@ Contas de demonstração (qualquer senha):
 Outros comandos:
 
 ```bash
-pnpm test                     # 100 testes (domínio, casos de uso, adapters, serviço) — exige o Postgres no ar
+pnpm test                     # 101 testes (domínio, casos de uso, adapters, serviço) — exige o Postgres no ar
 pnpm typecheck && pnpm lint
 pnpm eval                     # 17 cenários de decisão contra o LLM real (pnpm eval "vencido" filtra)
 ```
 
 > Se o Docker Desktop não estiver rodando no Linux, `DOCKER_CONTEXT=default docker compose up -d` usa o engine do sistema.
+
+> **Limite do tier gratuito do Gemini:** 15 requisições por minuto, e um turno com ferramentas usa de 2 a 4. Se várias mensagens forem enviadas em sequência rápida, o agent responde com a mensagem de contingência e o botão "Tentar de novo" — basta aguardar alguns segundos. Botões (confirmar rascunho, escolher chamado, falar com analista) não consomem o limite.
 
 ---
 
@@ -85,7 +87,8 @@ mensagem
   4. Policy (código puro)            → rota + tools permitidas + regras aplicadas
        fora de TI → redireciona          pediu analista → transfere
        confiança < 0,5 → pergunta; 2ª vez seguida → transfere ("agent pediu ajuda")
-       "pode criar" com rascunho → executa (com confiança alta; senão pede o botão)
+       "pode criar" com rascunho → executa só se for frase de aprovação explícita e
+                                   confiança alta; informação nova vira edição do rascunho
        demais → Responder com apenas as tools daquela intenção
   5. Responder (LLM com tools, streaming)
   6. guardrails de saída             → remove números de chamado que não são do funcionário
@@ -98,7 +101,7 @@ As regras do Anexo A são funções puras e testadas, nunca só prompt:
 |---|---|
 | Prioridade = impacto × urgência, com a justificativa em texto | `domain/priority.ts` |
 | Prazo em horas/dias úteis (seg–sex 8h–18h, crítica 1 h corrida) e vencimento | `domain/sla.ts` |
-| Duplicidade (mesma categoria + similaridade de termos) e janela de reabertura de 7 dias | `domain/ticket-rules.ts` |
+| Duplicidade (similaridade de termos, com limiar menor na mesma categoria) e janela de reabertura de 7 dias | `domain/ticket-rules.ts` |
 | Confirmação antes de escrever: escrita só via rascunho confirmado, com `Idempotency-Key` | caso de uso + serviço |
 | Transferência: pedido, crítico (automática após confirmar), vencido, baixa confiança | `domain/policy.ts` + caso de uso |
 | Privacidade: `employeeId` vem da sessão e fica preso nas tools; o modelo nunca o escolhe | `turn-tools.ts` + serviço |
@@ -123,7 +126,7 @@ As regras do Anexo A são funções puras e testadas, nunca só prompt:
 
 ## Como garanti a qualidade das decisões
 
-1. **Testes de domínio e casos de uso** (Vitest, 100 testes): SLA com fins de semana e fora do expediente, tabela de prioridade, duplicidade, reabertura, máquina de estados, policy, guardrails, e o turno completo com Interpreter/Responder roteirizados — cada teste cita o requisito (`REQ-OPEN-05: não cria chamado sem confirmação`).
+1. **Testes de domínio e casos de uso** (Vitest, 101 testes): SLA com fins de semana e fora do expediente, tabela de prioridade, duplicidade, reabertura, máquina de estados, policy, guardrails, e o turno completo com Interpreter/Responder roteirizados — cada teste cita o requisito (`REQ-OPEN-05: não cria chamado sem confirmação`).
 2. **Testes de integração** contra Postgres real: repositórios, busca na central de ajuda, serviço de chamados (posse, idempotência, janela de reabertura, indisponibilidade) e cliente HTTP (retry com backoff, Idempotency-Key repetida em cada tentativa).
 3. **Evals com o LLM real** (`pnpm eval`): 17 cenários com asserções sobre intenção, rota, tools chamadas, blocos exibidos, estado e chamadas ao serviço. As asserções **críticas** — privacidade, nunca criar sem confirmação, guardrails — falham o processo. O relatório mostra taxa de acerto e tokens por cenário.
 
